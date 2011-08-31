@@ -1,0 +1,180 @@
+@import "bootstrap/bootstrap.less";
+
+.clearfix { margin-bottom: 0px; }
+
+/* =VARIABLES
+================================================== */
+@canvas: #333;
+@canvas_foreground: #fff;
+@foreground: #333;
+@background: #eee;
+
+@lightgreen: #efffef;
+@lightred: #ffebeb;
+@lightyellow: #fffcae;
+@failred: rgba(255, 0, 0, 0.75);
+@successgreen: rgba(16, 191, 9, 0.95);
+
+/* =BROWSER
+================================================== */
+html, body                                              { background: @canvas url(/img/noisebg.png);  }
+
+/* =SHARED
+================================================== */
+.pane                                                   { background: @background; color: @foreground; position: absolute; top: 0; right: 0; bottom: 0; left: 200px; 
+  .border-radius;
+  .box-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  text-shadow: 0px 1px 1px @white;
+}
+
+.scroll_view                                            { overflow-y: auto; position: absolute; top: 84px; right: 0; bottom: 0; left: 0; }
+
+.scroll_view::-webkit-scrollbar                         { width: 8px; height: 8px; }
+.scroll_view::-webkit-scrollbar-track                   { background: transparent; }
+.scroll_view::-webkit-scrollbar-track-piece             { background: transparent; }
+.scroll_view::-webkit-scrollbar-corner                  { background: transparent; }
+.scroll_view::-webkit-resizer                           { background: transparent; }
+.scroll_view::-webkit-scrollbar-thumb                   { border-radius: 10px; background: #aaa; }
+
+.pane_header                                            { padding: 10px 20px 15px 20px; color: @white; font-size: 20px; line-height: 20px;
+  background: url(/img/pane_header.png) repeat-x;
+  text-shadow: 0px 1px 2px fadeout(@black, 60);
+  -webkit-border-radius: 5px 5px 0 0;
+     -moz-border-radius: 5px 5px 0 0;
+          border-radius: 5px 5px 0 0;
+}
+
+.pane.build_details                                     { left: 280px; }
+
+.sub_header                                             { padding: 9px 20px 11px 20px; color: @white;
+  .gradientBar(@grayLight, @gray);
+  text-shadow: 0px 1px 2px fadeout(@black, 50%);
+  border-top: 1px solid fadeout(@white, 30%);
+}
+
+input[type="text"].error, input[type="password"].error, textarea.error { border-color: #C87872;
+  .box-shadow(0 0 3px rgba(171, 41, 32, 0.25));
+}
+
+/* =LAYOUT
+================================================== */
+#main_logo                                              { margin-left: 40px; background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; margin-top: 20px; }
+#main_content                                           { position: absolute; top: 120px; right: 40px; bottom: 40px; left: 40px; }
+#nkovote                                                { position: absolute; top: 20px; right: 20px; }
+
+/* =STATES
+================================================== */
+
+/* --- loader --- */
+#loader                                                 { width: 400px; margin: auto; text-align: center; }
+#loader img { .border-radius; }
+#loader h4 { color: @grayLight;
+  text-shadow: 0px 1px 2px fadeout(@black, 80%);
+}
+
+/* --- add repository --- */
+.add_repository                                         { width: 750px; margin: 0px auto; position: relative; margin-top: -50px; }
+.add_repository .main_logo                              { background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; }
+.add_repository h1, h2                                  { color: @canvas_foreground; margin-bottom: 20px;}
+.add_repository h3, h4                                  { color: @gray; line-height: 18px; margin-bottom: 5px; 
+  text-shadow: 0px 1px 2px fadeout(@black, 80%);
+}
+.add_repository form                                    { position: absolute; }
+.add_repository .repository_url_input                   { width: 750px; height: 40px; font-size: 30px; margin-bottom: 20px; }
+.add_repository .repository_url_input::-webkit-input-placeholder { padding: 7px; }
+.add_repository .btn.add                                { position: absolute; top: 6px; right: 6px; } 
+.add_repository .error_message                          { display: none; margin-top: -2px; font-size: 16px; color: @canvas_foreground; padding: 10px; text-align: center; 
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.1);
+  -webkit-border-radius: 0px 0px 4px 4px;
+     -moz-border-radius: 0px 0px 4px 4px;
+          border-radius: 0px 0px 4px 4px;
+}
+.add_repository .view_all_repositories_link             { margin-top: 150px; text-align: center; }
+
+/* --- repository list view --- */
+.repository_list                                        { position: absolute; top: 5px; bottom: 5px; left: 0; width: 200px; overflow-y: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  .box-shadow(inset 0 1px 4px rgba(0, 0, 0, 0.5));
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.repository_list::-webkit-scrollbar { width: 6px; }
+.repository_list::-webkit-scrollbar-track { background: transparent; }
+.repository_list::-webkit-scrollbar-thumb { border-radius: 10px; background: #000; }
+
+.repository_list ul                                     { list-style: none; margin: 0; padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.repository_list ul li                                  { padding: 8px 10px; cursor: pointer;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.repository_list ul li:hover                            { color: @grayLight; background: fadeout(@black, 95%); border-top: 1px solid fadeout(@black, 80%); }
+.repository_list ul li:first-child                      { border-top: 0; }
+.repository_list ul li.owner_name                       { color: @white; }
+.repository_list ul li.owner_name span.user_icon        { width: 16px; height: 16px; background: url(/img/user_icon.png) no-repeat center; display: inline-block; margin-right: 10px; float: left; margin-top: 1px;
+  opacity: 0.3; 
+}
+
+
+.repository_list ul li.current                          { background: fadeout(@black, 80%); color: @white; border-top: 1px solid fadeout(@black, 80%);  }
+
+.repository_list ul li .build_result                    { float: right; width: 16px; height: 16px; margin-right: 10px; display: none; }
+.repository_list ul li.success  .build_result           { background: url(/img/success_icon.png); }
+.repository_list ul li.failure  .build_result           { background: url(/img/failed_icon.png); }
+.repository_list ul li.running  .build_result           { background: url(/img/running.gif); }
+.repository_list ul li.unknown  .build_result           { background: url(/img/unknown_icon.png); }
+
+
+.add_new_repo_button                                    { display: inline-block; margin: 10px; cursor: pointer; position: absolute; bottom: -42px; left: 40px; 
+  font-size: 12px !important;
+  font-weight: bold; 
+}
+
+.select_repository                                      { width: 350px; text-align: center; margin: 150px auto; font-size: 20px; color: #aaa; }
+
+/* --- show repository view --- */
+.pane_header .build_result                              { position: absolute; right: 10px; top: 10px; height: 26px;}
+.pane_header .build_result.success                      { background: url(/img/header_success.png); width: 104px; }
+.pane_header .build_result.failure                      { background: url(/img/header_failure.png); width: 89px; }
+.pane_header .build_result.running                      { background: url(/img/header_running.png); width: 104px; }
+.pane_header .build_result.unknown                      { background: url(/img/header_unknown.png); width: 104px; }
+
+/* --- build list view --- */
+.build_list                                             { list-style: none; margin: 0; }
+.build_history_list                                     { top: 162px; }
+.builds .build_list_item                                { padding: 10px 20px; cursor: pointer; 
+  .gradientBar(@grayLighter, lighten(@grayLight, 5%));
+  color: #333;
+  text-shadow: 0px 1px 1px @white;
+  border-bottom: 1px solid #aaa; 
+  border-top: 1px solid #fff; 
+}
+.builds .build_list_item:hover                          { color: #000;}
+.builds .build_list_item.current                        {
+  .gradientBar(lighten(#d1e4ff, 10%), #d1e4ff);
+  border-top: 1px solid #fff; 
+  text-shadow: 0px 1px 1px @white;
+}
+.builds .build_icon                                     { float: left; width: 16px; height: 16px; display: inline-block; margin-right: 10px; margin-top: 1px; }
+.builds .failure .build_icon                            { background: url(/img/failed_icon.png); }
+.builds .success .build_icon                            { background: url(/img/success_icon.png); }
+.builds .unknown .build_icon                            { background: url(/img/unknown_icon.png); }
+.builds .running .build_icon                            { background: url(/img/running.gif); }
+
+
+/* --- build view --- */
+.build_output                                           { background: #222; color: @white; font-size: 12px; padding: 10px 20px; #font > .monospace; margin-top: -1px;
+  text-shadow: 0px 1px 1px @black;
+}
+
+.build_output::-webkit-scrollbar                        { width: 6px; height: 8px; }
+.build_output::-webkit-scrollbar-thumb                  { border-radius: 10px; background: #444 !important; border-top: 1px solid #777; border-bottom: 1px solid #333; }
+
+.green { color: @green; }

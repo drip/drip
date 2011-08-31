@@ -1,0 +1,83 @@
+!!! 5
+html(lang="en")
+  head
+    meta(charset='utf-8')
+    title drip: node.js continuous integration
+    //if lt IE 9
+      script(src="//html5shim.googlecode.com/svn/trunk/html5.js")
+    link(rel="stylesheet/less", type="text/css",href="/css/core.less")
+    script(src="js/vendor/less-1.1.3.min.js")
+    script(src="js/vendor/underscore-min.js")
+    script(src="js/vendor/json2.js")
+    script(src="js/vendor/jquery-1.6.2.min.js")
+    script(src="js/vendor/backbone-min.js")
+    
+    script(src="js/app/routers/app_router.js")
+    script(src="js/app/models/build.js")
+    script(src="js/app/models/build_list.js")
+    script(src="js/app/models/repository.js")
+    script(src="js/app/models/repository_list.js")
+    script(src="js/app/views/app_view.js")
+    script(src="js/app/views/add_repository_view.js")
+    script(src="js/app/views/repository_list_view.js")
+    script(src="js/app/views/repository_view.js")
+    script(src="js/app/views/build_list_view.js")
+    script(src="js/app/views/build_view.js")
+
+    script(src="/socket.io/socket.io.js")
+    script  
+      window.socket = io.connect();
+
+    script(type="text/template", id="add_repository_tmpl")
+      div(class="main_logo")
+      h2 Drip is continuous integration for node.js.
+      form(method='post', action='/repositories', id='add_repo_form')
+        input(type="text", class="xlarge repository_url_input", value="http://github.com/visionmedia/jade"), placeholder="http://github.com/visionmedia/jade")
+        input(type="submit",class="btn primary large add",value="Run 'em, Danno!")
+        h3 Drop your Github URL in above for a one time build.
+        div(class="error_message")
+        h3 Setup a GitHub post-receive hook to http://drip.io/receive to build each push! 
+      div(class="view_all_repositories_link")
+        a(href="#/repositories", class="btn info") View all repositories
+
+    script(type="text/template", id="repository_list_template")
+      aside(class="repository_list")
+        ul
+      a(href="#/repositories/new", class="add_new_repo_button btn small primary") Add repository
+        
+      div(class="pane") 
+        div(class="select_repository") Please select a repository on the left
+
+    script(type="text/template", id="repository_show_template")
+      div(class="pane_header") 
+        <%= name %>
+        div(class="build_result")
+
+    script(type="text/template", id="build_list_template")
+      div(class="builds")
+        div(class='latest_build')
+          div(class='sub_header') Latest build
+
+        div(class='build_history')
+          div(class='sub_header') History
+          div(class="build_history_list scroll_view")
+            ul(class='build_list')
+
+    script(type="text/template", id="build_view_template")
+      div(class="pane_header") 
+        <%= label %>
+        div(class="build_result")
+      div(class='sub_header') Build output for branch: <%= branch %>
+      div(class="build_output scroll_view")
+        <%= output %>
+
+  body
+    div(id="nkovote")
+      iframe(src="http://nodeknockout.com/iframe/swipers", frameborder="0", scrolling="no", allowtransparency="true", width="115", height="25")
+    != body
+
+  script
+    var appRouter = new AppRouter();
+    if (!Backbone.history.start()) {
+      console.log("no routes matched");
+    };
