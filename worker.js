@@ -72,10 +72,18 @@ var Jobs = {
         var name = 'npm_install';
         console.log("running npm install...");
         cmds[name] = spawn('npm',['install'], {cwd: workingDir});
+        cmdOut.bind(name, spawnNpmTest);
+      };
+
+      // NPM test.
+      var spawnNpmTest = function(){
+        var name = 'npm_test';
+        console.log("running npm test...");
+        cmds[name] = spawn('npm',['test'], {cwd: workingDir});
         cmdOut.bind(name, spawnMakeTest);
       };
 
-      // Run tests.
+      // Make test, if exists?
       var spawnMakeTest = function(){
         var name = 'make_test';
         console.log("running make test...");
