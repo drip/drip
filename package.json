@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "expresso": "~0.8.1"
+  },
+  "scripts":{ 
+    "test": "expresso test/*.test.js"
   }
 }
