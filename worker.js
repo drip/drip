@@ -84,6 +84,9 @@ var Jobs = {
       };
 
       // Make test, if exists?
+      //
+      // TODO: Only run this if npm test didn't do anything?
+      //
       var spawnMakeTest = function(){
         var name = 'make_test';
         console.log("running make test...");
