@@ -15,4 +15,4 @@ drip was written by [Christopher Meiklejohn](mailto:christopher.meiklejohn@gmail
 
 ## License
 
-drip is Copyright © 2011 drip.  It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.
+Copyright © 2011 drip.  It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.
