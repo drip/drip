@@ -33,20 +33,18 @@ html(lang="en")
       h2 Continuous integration for npm.
       form(method='post', action='/repositories', id='add_repo_form')
         input(type="text", class="xlarge repository_url_input", value="http://github.com/visionmedia/jade"), placeholder="http://github.com/visionmedia/jade")
-        input(type="submit",class="btn primary large add",value="Run 'em, Danno!")
-        h3 Drop your Github URL in above for a one time build or
-        h3 Setup a GitHub post-receive hook to http://drip.io
+        input(type="submit",class="btn primary large add",value="See It In Action!")
         div(class="error_message")
       div(class="view_all_repositories_link")
         a(href="#/repositories", class="btn info") View all repositories
 
-      h4 How to use drip
+      h4 Using Drip
         ul
           li Ensure that your package.json file has the following: "scripts":{ "test": "run some program" } 
           li Setup a post-receive hook in GitHub to http://drip.io
-          li Note: We no longer support make test; this has been replaced by adding a test script to your npm package.json.
+        h6 Note: We no longer support make test; this has been replaced in favor of npm test.
 
-      h4 Questions?  Tweet @dripioapp!
+      h3 Questions?  Tweet @dripioapp!
 
     script(type="text/template", id="repository_list_template")
       aside(class="repository_list")
