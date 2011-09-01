@@ -80,17 +80,6 @@ var Jobs = {
         var name = 'npm_test';
         console.log("running npm test...");
         cmds[name] = spawn('npm',['test'], {cwd: workingDir});
-        cmdOut.bind(name, spawnMakeTest);
-      };
-
-      // Make test, if exists?
-      //
-      // TODO: Only run this if npm test didn't do anything?
-      //
-      var spawnMakeTest = function(){
-        var name = 'make_test';
-        console.log("running make test...");
-        cmds[name] = spawn('make',['test'], {cwd: workingDir});
         cmdOut.bind(name, buildFinish);
       };
 
