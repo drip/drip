@@ -2,7 +2,7 @@
 html(lang="en")
   head
     meta(charset='utf-8')
-    title drip: node.js continuous integration
+    title drip: npm continuous integration
     //if lt IE 9
       script(src="//html5shim.googlecode.com/svn/trunk/html5.js")
     link(rel="stylesheet/less", type="text/css",href="/css/core.less")
@@ -30,15 +30,23 @@ html(lang="en")
 
     script(type="text/template", id="add_repository_tmpl")
       div(class="main_logo")
-      h2 Drip is continuous integration for node.js.
+      h2 Continuous integration for npm.
       form(method='post', action='/repositories', id='add_repo_form')
         input(type="text", class="xlarge repository_url_input", value="http://github.com/visionmedia/jade"), placeholder="http://github.com/visionmedia/jade")
         input(type="submit",class="btn primary large add",value="Run 'em, Danno!")
-        h3 Drop your Github URL in above for a one time build.
+        h3 Drop your Github URL in above for a one time build or
+        h3 Setup a GitHub post-receive hook to http://drip.io
         div(class="error_message")
-        h3 Setup a GitHub post-receive hook to http://drip.io/receive to build each push! 
       div(class="view_all_repositories_link")
         a(href="#/repositories", class="btn info") View all repositories
+
+      h4 How to use drip
+        ul
+          li Ensure that your package.json file has the following: "scripts":{ "test": "run some program" } 
+          li Setup a post-receive hook in GitHub to http://drip.io
+          li Note: We no longer support make test; this has been replaced by adding a test script to your npm package.json.
+
+      h4 Questions?  Tweet @dripioapp!
 
     script(type="text/template", id="repository_list_template")
       aside(class="repository_list")

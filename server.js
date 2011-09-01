@@ -32,20 +32,23 @@ app.configure('production', function() {
 
 // Routing.
 //
-var Index = require('./controllers/index.js');
-app.get('/', Index.index);
+var Index        = require('./controllers/index.js');
+    Repositories = require('./controllers/repositories.js');
+    Builds       = require('./controllers/builds.js');
+    Receiver     = require('./controllers/receiver.js');
 
-var Repositories = require('./controllers/repositories.js');
+app.get('/', Index.index);
+app.post('/', Receiver.receive);
+
 app.get('/repositories', Repositories.list);
 app.post('/repositories', Repositories.create);
 app.get('/repositories/:ownerName', Repositories.list);
 app.get('/repositories/:ownerName/:name', Repositories.show);
 
-var Builds = require('./controllers/builds.js');
 app.get('/repositories/:ownerName/:name/builds', Builds.list);
 app.get('/repositories/:ownerName/:name/builds/:id', Builds.show);
 
-var Receiver = require('./controllers/receiver.js');
+// Legacy hook.
 app.post('/receive', Receiver.receive);
 
 // Sockets.

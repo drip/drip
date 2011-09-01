@@ -13,7 +13,7 @@ setTimeout(function(){
       { url: '/' }, 
       { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' }},
       function(response) { 
-        assert.includes(response.body, 'Drip is continuous integration for node.js.');
+        assert.includes(response.body, 'Continuous integration for npm.');
       }
     );
   };
