@@ -29,23 +29,31 @@ html(lang="en")
       window.socket = io.connect();
 
     script(type="text/template", id="add_repository_tmpl")
-      div(class="main_logo")
+      header
+        div(class="main_logo")
+        nav(class="front_nav")
+          ul(class="unstyled clearfix")
+            li(class="current") 
+              a(href="/") Add repository
+            li
+              a(href="#/repositories") View all repositories
+            li
+              a(href="http://twitter.com/dripioapp") Questions? Tweet @dripioapp
       h2 Continuous integration for npm.
       form(method='post', action='/repositories', id='add_repo_form')
         input(type="text", class="xlarge repository_url_input",
         value="http://github.com/indexzero/winston"), placeholder="http://github.com/indexzero/winston")
         input(type="submit",class="btn primary large add",value="See It In Action!")
         div(class="error_message")
-      div(class="view_all_repositories_link")
-        a(href="#/repositories", class="btn info") View All Repositories
 
-      h4 Using Drip
-        ul
+      div(class="using_drip")
+        h6 Using Drip
+        ul(class="unstyled")
           li Ensure that your package.json file has the following: "scripts":{ "test": "run some program" } 
           li Setup a post-receive hook in GitHub to http://drip.io
-        h6 Note: We no longer support make test; this has been replaced in favor of npm test.
+        p
+          em Note: We no longer support make test; this has been replaced in favor of npm test.
 
-      h3 Questions?  Tweet @dripioapp!
 
     script(type="text/template", id="repository_list_template")
       aside(class="repository_list")

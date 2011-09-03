@@ -75,12 +75,24 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 /* --- add repository --- */
 .add_repository                                         { width: 750px; margin: 0px auto; position: relative; margin-top: -50px; }
 .add_repository .main_logo                              { background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; }
+.add_repository .front_nav                              { position: absolute; top: 25px; left: 180px; }
+.add_repository .front_nav ul li                        { float: left; margin-right: 5px; }
+.add_repository .front_nav ul li a                      { color: #222; padding: 4px 14px; 
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+  .border-radius(12px);
+}
+.add_repository .front_nav ul li a:hover                { background: rgba(255, 255, 255, 0.05); text-decoration: none; }
+.add_repository .front_nav ul li.current a              { color: #888;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  .box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
 .add_repository h1, h2                                  { color: @canvas_foreground; margin-bottom: 20px;}
 .add_repository h3, h4                                  { color: @gray; line-height: 18px; margin-bottom: 5px; 
   text-shadow: 0px 1px 2px fadeout(@black, 80%);
 }
 .add_repository form                                    { position: absolute; }
-.add_repository .repository_url_input                   { width: 750px; height: 40px; font-size: 30px; margin-bottom: 20px; }
+.add_repository .repository_url_input                   { width: 740px; height: 40px; font-size: 30px; margin-bottom: 20px; }
 .add_repository .repository_url_input::-webkit-input-placeholder { padding: 7px; }
 .add_repository .btn.add                                { position: absolute; top: 6px; right: 6px; } 
 .add_repository .error_message                          { display: none; margin-top: -2px; font-size: 16px; color: @canvas_foreground; padding: 10px; text-align: center; 
@@ -91,6 +103,14 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
           border-radius: 0px 0px 4px 4px;
 }
 .add_repository .view_all_repositories_link             { margin-top: 150px; text-align: center; }
+
+.using_drip                                             { padding: 10px; margin-top: 100px; 
+  background: rgba(0, 0, 0, 0.15);
+  .border-radius(4px);
+  .box-shadow(inset 0 1px 2px rgba(0, 0, 0 ,0.3);
+}
+.using_drip h4                                          { }
+.using_drip ul li                                       { margin-bottom: 5px; }
 
 /* --- repository list view --- */
 .repository_list                                        { position: absolute; top: 5px; bottom: 5px; left: 0; width: 200px; overflow-y: auto;
