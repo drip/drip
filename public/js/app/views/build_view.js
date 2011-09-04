@@ -12,7 +12,7 @@ var BuildView = Backbone.View.extend({
     this.el = $(this.el);
     var tmpl = $(_.template($("#build_view_template").html(), {
           label: this.model.get("label"),
-          output: this.parsedOutput(),
+          output: this.parseOutput(),
           branch: this.model.get("branch")
         })),
         outputNode;
@@ -31,9 +31,22 @@ var BuildView = Backbone.View.extend({
     return this;
   },
   
-  parsedOutput: function() {
-    // TODO: parse ansi sequences
-    return this.model.get("output").replace(/\n/g,'<br>').replace(/\033\[[0-9;]*m/g,"").replace(/✓/g, "<span class='green'>✓</span>");
+  parseOutput: function() {
+    var red = [], //["failure", "fail", "fatal", "error", "uncaught", "err"],
+        green = ["✓"], //, "success", "successful"],
+        output;
+
+    output = this.model.get("output").replace(/\n/g,'<br>').replace(/\033\[[0-9;]*m/g,"");
+
+    _.each(red, function (r) {
+      output = output.replace(new RegExp(r, "i", "g"), "<span class='red'>" + r + "</span>");
+    });
+
+    _.each(green, function (g) {
+      output = output.replace(new RegExp(g, "i", "g"), "<span class='green'>" + g + "</span>");
+    });
+
+    return output;
   }
 
 });

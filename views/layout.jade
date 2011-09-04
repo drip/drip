@@ -36,9 +36,9 @@ html(lang="en")
             li(class="current") 
               a(href="/") Add repository
             li
-              a(href="#/repositories") View all repositories
+              a(href="#/repositories") All repositories
             li
-              a(href="http://twitter.com/dripioapp") Questions? Tweet @dripioapp
+              a(href="http://twitter.com/dripioapp", target="_blank") @dripioapp
       h2 Continuous integration for npm.
       form(method='post', action='/repositories', id='add_repo_form')
         input(type="text", class="xlarge repository_url_input",
@@ -51,7 +51,7 @@ html(lang="en")
         ul(class="unstyled")
           li Ensure that your package.json file has the following: "scripts":{ "test": "run some program" } 
           li Setup a post-receive hook in GitHub to http://drip.io
-        p
+        p(class="note")
           em Note: We no longer support make test; this has been replaced in favor of npm test.
 
 

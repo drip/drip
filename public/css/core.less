@@ -77,15 +77,16 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .add_repository .main_logo                              { background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; }
 .add_repository .front_nav                              { position: absolute; top: 25px; left: 180px; }
 .add_repository .front_nav ul li                        { float: left; margin-right: 5px; }
-.add_repository .front_nav ul li a                      { color: #222; padding: 4px 14px; 
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+.add_repository .front_nav ul li a                      { color: #888; padding: 5px 14px; font-size: 14px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   .border-radius(12px);
+  border-bottom: 1px solid transparent;
 }
-.add_repository .front_nav ul li a:hover                { background: rgba(255, 255, 255, 0.05); text-decoration: none; }
-.add_repository .front_nav ul li.current a              { color: #888;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+.add_repository .front_nav ul li a:hover                { text-decoration: none; color: #eee; }
+.add_repository .front_nav ul li.current a              { color: #eee;
   background: rgba(0, 0, 0, 0.2);
   .box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 .add_repository h1, h2                                  { color: @canvas_foreground; margin-bottom: 20px;}
 .add_repository h3, h4                                  { color: @gray; line-height: 18px; margin-bottom: 5px; 
@@ -105,12 +106,14 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .add_repository .view_all_repositories_link             { margin-top: 150px; text-align: center; }
 
 .using_drip                                             { padding: 10px; margin-top: 100px; 
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   background: rgba(0, 0, 0, 0.15);
   .border-radius(4px);
   .box-shadow(inset 0 1px 2px rgba(0, 0, 0 ,0.3);
 }
 .using_drip h4                                          { }
 .using_drip ul li                                       { margin-bottom: 5px; }
+.using_drip .note                                       { font-size: 13px; }
 
 /* --- repository list view --- */
 .repository_list                                        { position: absolute; top: 5px; bottom: 5px; left: 0; width: 200px; overflow-y: auto;
