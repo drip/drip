@@ -64,8 +64,10 @@ html(lang="en")
         div(class="select_repository") Please select a repository on the left
 
     script(type="text/template", id="repository_show_template")
-      div(class="pane_header") 
-        <%= name %>
+      div(class="pane_header clearfix") 
+        div(class="repository_name") 
+          div(class="title")<%= name %>
+          div(class="wrench_icon")
         div(class="build_result")
 
     script(type="text/template", id="build_list_template")

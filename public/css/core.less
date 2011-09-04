@@ -169,6 +169,14 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .pane_header .build_result.running                      { background: url(/img/header_running.png); width: 104px; }
 .pane_header .build_result.unknown                      { background: url(/img/header_unknown.png); width: 104px; }
 
+.pane_header .title                                     { float: left; }
+.pane_header .wrench_icon                               { background: url(/img/wrench_icon.png); width: 16px; height: 16px; float: left; margin-left: 10px; margin-top: 3px; cursor: pointer;
+  opacity: 0.3;
+}
+.pane_header .wrench_icon:hover                         {
+  opacity: 1;
+}
+
 /* --- build list view --- */
 .build_list                                             { list-style: none; margin: 0; }
 .build_history_list                                     { top: 162px; }
