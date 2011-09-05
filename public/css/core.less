@@ -56,6 +56,20 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
   .box-shadow(0 0 3px rgba(171, 41, 32, 0.25));
 }
 
+/* --- ipopover nav --- */
+.popover_nav                                            { position: absolute; padding: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  .border-radius(5px); 
+  .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+}
+.popover_nav:after, .popover_nav:before                 { border: solid transparent; content: ' '; height: 0; bottom: 100%; position: absolute; width: 0; }
+
+.popover_nav:after                                      { border-width: 6px; left: 50%; margin-left: -6px; 
+  border-bottom-color: rgba(0, 0, 0, 0.8);
+}
+
+.popover_nav ul                                         { margin: 0; }
+
 /* =LAYOUT
 ================================================== */
 #main_logo                                              { margin-left: 40px; background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; margin-top: 20px; }

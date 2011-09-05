@@ -49,6 +49,7 @@ var RepositoryListItemView = Backbone.View.extend({
   intialize: function () {
     _.bindAll(this);
     this.model.bind("reset", this.render);
+    this.model.bind("destroy", this.remove);
   },
 
   render: function () {
@@ -58,13 +59,14 @@ var RepositoryListItemView = Backbone.View.extend({
   },
 
   show: function () {
-    appRouter.navigate("/" + this.model.get("ownerName") + "/" + this.model.get("name"));
+    var repo = this.model;
+
+    appRouter.navigate("/" + repo.get("ownerName") + "/" + repo.get("name"));
     this.select();
 
-    var repository = new Repository(this.model.attributes);
-    new RepositoryView({model: repository});
-    repository.fetch({success: function () {
-      repository.trigger("change");
+    new RepositoryView({model: repo});
+    repo.fetch({success: function () {
+      repo.trigger("change");
     }});
 
   },
@@ -72,6 +74,10 @@ var RepositoryListItemView = Backbone.View.extend({
   select: function () {
     $(".repository_list_item").removeClass("current");
     $(this.el).addClass("current");
+  },
+
+  remove: function () {
+    $(this.el).remove();
   }
 
 });

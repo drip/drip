@@ -9,9 +9,10 @@ module.exports.list = function (request, response) {
   Repository.findOne({ ownerName: ownerName, name: name }, function (err, repository) { 
     if (err) throw err;
    
-    if(repository && repository.builds) {
+    if (repository && repository.builds) {
       response.send(repository.builds);
-    } else {
+    } 
+    else {
       reponse.end();
     }
   });
@@ -25,21 +26,22 @@ module.exports.show = function (request, response) {
   Repository.findOne({ ownerName: ownerName, name: name }, function (err, repository) { 
     if (err) throw err;
 
-    if(repository && repository.builds) { 
+    if (repository && repository.builds) { 
       var build = repository.builds.id(id);
 
-      if(build) {
+      if (build) {
         redis.lrange("builds:" + build.id, 0, -1, function(err, output) {
           if (err) throw err;
 
           build.output = output.join('');
-
           response.send(build);
         });
-      } else { 
+      } 
+      else { 
         response.end();
       }
-    } else {
+    } 
+    else {
       response.end();
     }
   });

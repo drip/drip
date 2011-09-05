@@ -1,5 +1,6 @@
 var Repository  = require('../models/repository.js').Repository,
     Build       = require('../models/build.js').Build,
+    redis       = require('../config/redis.js'),
     resque      = require('../config/resque');
 
 var findOrCreateRepository = require('../lib/repositories.js').findOrCreateRepository,
@@ -51,5 +52,25 @@ module.exports.show = function (request, response) {
   Repository.findOne({ ownerName: ownerName, name: name  }, function (err, repository) { 
     if (err) throw err;
     response.send(repository);
+  });
+};
+
+module.exports.destroy = function (request, response) {
+  var name      = request.params.name,
+      ownerName = request.params.ownerName;
+
+  Repository.findOne({ ownerName: ownerName, name: name }, function (err, repository) { 
+    if (err) throw err;
+
+    if (repository && repository.builds) {
+
+      // loop over each build output in redis and delete it 
+      repository.builds.forEach(function (build) {
+        redis.del("builds:" + build.id);
+      });
+
+    } 
+    repository.remove();
+    response.end();
   });
 };
