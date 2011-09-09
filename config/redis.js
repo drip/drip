@@ -1,5 +1,5 @@
 var redis = require('redis'),
-    app   = require('../server');
+    app   = require('../server').app;
 
 var client = redis.createClient(
   app.set('credentials').redis.port,

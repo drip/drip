@@ -1,4 +1,4 @@
-var app = require('../server');
+var app = require('../server').app;
 
 var Index        = require('../controllers/index');
     Repositories = require('../controllers/repositories');

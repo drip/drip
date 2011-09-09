@@ -1,5 +1,8 @@
 var express = require('express'), 
-    app     = module.exports = express.createServer();
+    app     = express.createServer();
+
+module.exports.app     = app;
+module.exports.express = express;
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
