@@ -1,9 +1,9 @@
-var Repository  = require('../models/repository.js').Repository,
-    Build       = require('../models/build.js').Build,
+var Repository  = require('../models/repository').Repository,
+    Build       = require('../models/build').Build,
     resque      = require('../config/resque');
 
-var findOrCreateRepository = require('../lib/repositories.js').findOrCreateRepository,
-    triggerRepositoryBuild = require('../lib/repositories.js').triggerRepositoryBuild;
+var findOrCreateRepository = require('../lib/repositories').findOrCreateRepository,
+    triggerRepositoryBuild = require('../lib/repositories').triggerRepositoryBuild;
 
 module.exports.create = function(request, response) { 
   if (!request.body && req.is('application/json')) { 
