@@ -26,6 +26,6 @@
     "vows": "~0.5.11"
   },
   "scripts":{ 
-    "test": "vows test/* --spec"
+    "test": "vows spec/* --spec"
   }
 }
