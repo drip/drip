@@ -1,10 +1,14 @@
-var app     = require('../server').app,
-    express = require('../server').express;
-
-app.configure('test', 'development', function() {
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
-
-app.configure('production', function() {
-  app.use(express.errorHandler()); 
-});
+(function() {
+  var app, express;
+  app = require('../app').app;
+  express = require('../app').express;
+  app.configure('test', 'development', function() {
+    return app.use(express.errorHandler({
+      dumpExceptions: true,
+      showStack: true
+    }));
+  });
+  app.configure('production', function() {
+    return app.use(express.errorHandler);
+  });
+}).call(this);
