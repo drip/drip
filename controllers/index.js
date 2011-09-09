@@ -1,3 +1,5 @@
-module.exports.index = function(request, response) { 
-  response.render('index');
-};
+(function() {
+  exports.index = function(request, response) {
+    return response.render('index');
+  };
+}).call(this);
