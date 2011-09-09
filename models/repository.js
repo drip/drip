@@ -2,7 +2,7 @@ var mongoose    = require('mongoose'),
     Schema      = mongoose.Schema, 
     ObjectId    = Schema.ObjectId, 
     date        = require('date-utils'),
-    BuildSchema = require("./build.js").BuildSchema;
+    BuildSchema = require("./build").BuildSchema;
 
 module.exports.RepositorySchema = new Schema({ 
   url:        { type: String, index: true, validate: function(v) { return v.length > 0 } },
