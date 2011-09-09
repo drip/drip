@@ -10,7 +10,6 @@
     "node": "~v0.4.7"
   },
   "dependencies": {
-    "nko": "~0.1.0",
     "express": "~2.4.6",
     "jade": "~0.14.2",
     "mongoose": "~2.0.2",
@@ -23,9 +22,9 @@
     "npm": "~1.0.13"
   },
   "devDependencies": {
-    "expresso": "~0.8.1"
+    "vows": "~0.5.11"
   },
   "scripts":{ 
-    "test": "expresso test/*.test.js"
+    "test": "vows test/* --spec"
   }
 }
