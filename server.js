@@ -15,7 +15,7 @@ app.configure(function(){
 var credentials = require('./config/credentials'),
     routes      = require('./config/routes'),
     mongoose    = require('./config/mongoose'),
-    sockets     = require('./config/sockets');
+    sockets     = require('./lib/sockets');
 
 // Environmental configuration.
 //
