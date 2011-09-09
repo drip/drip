@@ -6,7 +6,7 @@ var client = redis.createClient(
   app.set('credentials').redis.host
 );
 
-client.auth(app.set('credentials').redis.password, function(err) {
+client.auth(app.set('credentials').redis.pass, function(err) {
   if(err) throw err;
   console.log("Redis authenticated!");
 });
