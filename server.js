@@ -12,20 +12,11 @@ app.configure(function(){
   app.set('view engine', 'jade');
 });
 
-var credentials = require('./config/credentials'),
-    routes      = require('./config/routes'),
-    mongoose    = require('./config/mongoose'),
-    sockets     = require('./lib/sockets');
-
-// Environmental configuration.
-//
-app.configure('test', 'development', function() {
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
-
-app.configure('production', function() {
-  app.use(express.errorHandler()); 
-});
+var credentials   = require('./config/credentials'),
+    routes        = require('./config/routes'),
+    mongoose      = require('./config/mongoose'),
+    sockets       = require('./lib/sockets'), 
+    environments  = require('./config/environments');
 
 // Configuration for port and setuid.
 //
