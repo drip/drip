@@ -2,6 +2,16 @@
 
 Drip is continuous integration for npm.
 
+## Running
+
+Starting the server:
+
+    node script/server.js
+
+Starting workers:
+
+    node script/worker.js
+
 ## Requirements
 
 drip has the following requirements:
