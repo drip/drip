@@ -83,14 +83,18 @@ var Jobs = {
         cmdOut.bind(name, buildFinish);
       };
 
-      // Finish the build.
+      // Finish the build and cleanup.
       var buildFinish = function() { 
+        var name = 'finish';
         build.finishedAt = Date.now();
-        console.log("finishing build at ["+build.finishedAt+"]...");
+        console.log("finishing build and cleaning-up ["+build.finishedAt+"]...");
         build.completed  = true;
         build.running    = false;
         build.successful = stepsSuccessful;
         repository.save(function (err) { if (err) throw err; });
+        
+        cmds[name] = spawn('rm',['-vrf', workingDir]);
+        cmdOut.bind(name);
       };
 
       // Handle the output.
