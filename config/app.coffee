@@ -15,7 +15,6 @@ credentials   = require './credentials'
 routes        = require './routes'
 mongoose      = require './mongoose'
 environments  = require './environments'
-sockets       = require '../lib/sockets'
 
 exports.start = (port) ->
   app.listen port, ->
