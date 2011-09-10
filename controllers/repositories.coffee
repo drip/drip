@@ -32,7 +32,7 @@ exports.list = (request, response) ->
       
       response.send repositories
   else
-    Repository.find (err, repositories) ->
+    Repository.find {}, (err, repositories) ->
       if err
         throw err
 
