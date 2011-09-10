@@ -14,6 +14,7 @@ exports.receive = (request, response) ->
   branch                = payload.ref.replace 'refs/heads/', ''
   repository            = payload.repository
   repository.ownerName  = repository.owner.name
+
   delete repository.owner
 
   findOrCreateRepository repository, (err, repository) ->

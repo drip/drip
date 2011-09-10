@@ -19,7 +19,7 @@ sockets       = require '../lib/sockets'
 
 exports.start = (port) ->
   app.listen port, ->
-    console.log('Ready')
+    console.log 'Ready'
 
     if process.getuid() == 0
       require('fs').stat __filename, (err, stats) ->

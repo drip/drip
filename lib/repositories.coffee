@@ -3,7 +3,11 @@ Build       = require('../models/build').Build
 Resque      = require('../config/resque').Connection
 
 exports.findOrCreateRepository = (desired_repository, callback) ->
-  Repository.findOne { ownerName: desired_repository.ownerName, name: desired_repository.name  }, (err, repository) ->
+  query =
+    name:      desired_repository.name
+    ownerName: desired_repository.ownername
+
+  Repository.findOne query, (err, repository) ->
     if err
       throw err
 
@@ -25,6 +29,7 @@ exports.triggerRepositoryBuild = (repository, branch, callback) ->
     branch: branch
 
   repository.builds.push build
+
   repository.save (err) ->
     if err
       throw err

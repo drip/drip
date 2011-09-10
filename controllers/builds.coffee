@@ -3,10 +3,11 @@ Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
 
 exports.list = (request, response) ->
-  name      = request.params.name
-  ownerName = request.params.ownerName
+  query =
+    name:      request.params.name
+    ownerName: request.params.ownerName
 
-  Repository.findOne { ownerName: ownerName, name: name }, (err, repository) ->
+  Repository.findOne query, (err, repository) ->
     if err
       throw err
 
@@ -16,11 +17,12 @@ exports.list = (request, response) ->
       response.end()
 
 exports.show = (request, response) ->
-  id        = request.params.id
-  name      = request.params.name
-  ownerName = request.params.ownerName
+  id    = request.params.id
+  query =
+    name:      request.params.name
+    ownerName: request.params.ownerName
 
-  Repository.findOne { ownerName: ownerName, name: name }, (err, repository) ->
+  Repository.findOne query, (err, repository) ->
     if err
       throw err
 

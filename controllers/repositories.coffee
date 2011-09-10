@@ -13,6 +13,7 @@ exports.create = (request, response) ->
   branch                = "master"
   repository            = request.body.repository
   repository.ownerName  = repository.owner.name
+
   delete repository.owner
 
   if repository.url.indexOf('http') == 0
@@ -23,10 +24,11 @@ exports.create = (request, response) ->
       response.send "OK"
 
 exports.list = (request, response) ->
-  ownerName = request.params.ownerName
+  query =
+    ownerName: request.params.ownerName
 
-  if ownerName
-    Repository.find { ownerName: ownerName }, (err, repositories) ->
+  if query && query.ownerName
+    Repository.find query, (err, repositories) ->
       if err
         throw err
       
@@ -39,10 +41,11 @@ exports.list = (request, response) ->
       response.send repositories
 
 exports.show = (request, response) ->
-  name      = request.params.name
-  ownerName = request.params.ownerName
+  query =
+    name:      request.params.name
+    ownerName: request.params.ownerName
 
-  Repository.findOne { ownerName: ownerName, name: name  }, (err, repository) ->
+  Repository.findOne query, (err, repository) ->
     if err
       throw err
 
