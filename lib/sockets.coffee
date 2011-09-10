@@ -8,4 +8,4 @@ io.sockets.on 'connection', (socket) ->
     console.log 'socket.io sending repository event'
     socket.emit 'repository',
       'repository': this
-    next
+    next()
