@@ -25,6 +25,6 @@ exports.Repository = Mongoose.model 'Repository', exports.RepositorySchema
 
 exports.Repository.prototype.toJSON = ->
   obj = this.toObject
-  if obj.builds
+  if obj.builds && obj.builds.length
     obj.builds = obj.builds.reverse
   obj
