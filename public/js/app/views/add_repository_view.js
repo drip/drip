@@ -1,4 +1,4 @@
-var AddRepositoryView = Backbone.View.extend({
+D.AddRepositoryView = Backbone.View.extend({
 
   tagName: "div",
   className: "add_repository",
@@ -44,10 +44,10 @@ var AddRepositoryView = Backbone.View.extend({
                       error: function(model, response) {
                         // errorMessageNode.html("Could not save").show();
                         // KLUDGE: why is error being called? :(
-                        appRouter.navigate("/" + model.get("owner").name + "/" + model.get("name"), true);
+                        D.appRouter.navigate("/" + model.get("owner").name + "/" + model.get("name"), true);
                       },
                       success: function(model, response){
-                        appRouter.navigate("/" + model.get("ownerName") + "/" + model.get("name"), true);
+                        D.appRouter.navigate("/" + model.get("ownerName") + "/" + model.get("name"), true);
                       }
                    });
   },

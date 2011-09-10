@@ -1,4 +1,4 @@
-var AppRouter = Backbone.Router.extend({
+D.AppRouter = Backbone.Router.extend({
 
   routes: {
     "": "root",
@@ -11,14 +11,14 @@ var AppRouter = Backbone.Router.extend({
 
   beforeFilter: function (ownerName, name) {
     $("#main_logo").show();
-    var appView = new AppView().render();
-    var repositoryList = new RepositoryList();
+    var appView = new D.AppView().render();
+    var repositoryList = new D.RepositoryList();
     var repo = {};
 
     if (ownerName) { repo.ownerName = ownerName; }
     if (name) { repo.name = name; }
 
-    var repositoryListView = new RepositoryListView({
+    var repositoryListView = new D.RepositoryListView({
       el: $(".repositories"),
       collection: repositoryList,
       selected: repo
@@ -32,8 +32,8 @@ var AppRouter = Backbone.Router.extend({
   },
 
   repositoriesAdd: function () {
-    var addRepositoryView = new AddRepositoryView({
-      model: new Repository()
+    var addRepositoryView = new D.AddRepositoryView({
+      model: new D.Repository()
     });
     $("#main_content").html(addRepositoryView.render().el);
   },
@@ -45,8 +45,8 @@ var AppRouter = Backbone.Router.extend({
   repositoriesShow: function (ownerName, name) {
     this.beforeFilter(ownerName, name);
 
-    var repository      = new Repository({ownerName: ownerName, name: name}),
-        repositoryView  = new RepositoryView({model: repository});
+    var repository      = new D.Repository({ownerName: ownerName, name: name}),
+        repositoryView  = new D.RepositoryView({model: repository});
         
     repository.fetch();
   },
@@ -54,13 +54,13 @@ var AppRouter = Backbone.Router.extend({
   buildShow: function (ownerName, name, id) {
     this.beforeFilter(ownerName, name);
 
-    var repository      = new Repository({ownerName: ownerName, name: name}),
-        repositoryView  = new RepositoryView({model: repository, selectedBuild: id});
+    var repository      = new D.Repository({ownerName: ownerName, name: name}),
+        repositoryView  = new D.RepositoryView({model: repository, selectedBuild: id});
         
     repository.fetch();
 
-    var build      = new Build({_id: id, repository: {ownerName: ownerName, name: name} }),
-        buildView  = new BuildView({model: build});
+    var build      = new D.Build({_id: id, repository: {ownerName: ownerName, name: name} }),
+        buildView  = new D.BuildView({model: build});
         
     build.fetch();
   }

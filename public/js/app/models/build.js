@@ -1,4 +1,4 @@
-var Build = Backbone.Model.extend({
+D.Build = Backbone.Model.extend({
   urlRoot: '/repositories',
 
   initialize: function (attrs) {
