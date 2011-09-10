@@ -5,7 +5,7 @@ Resque      = require('../config/resque').Connection
 exports.findOrCreateRepository = (desired_repository, callback) ->
   query =
     name:      desired_repository.name
-    ownerName: desired_repository.ownername
+    ownerName: desired_repository.ownerName
 
   Repository.findOne query, (err, repository) ->
     if err
