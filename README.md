@@ -19,6 +19,12 @@ drip has the following requirements:
 * redis (for resque, and scheduling and working of builds)
 * mongodb (for storage of build statistics)
 
+## Testing
+
+Run:
+  
+    npm test
+
 ## Authors
 
 drip was written by [Christopher Meiklejohn](mailto:christopher.meiklejohn@gmail.com), [Simon Højberg](http://twitter.com/shojberg), and Barnaby Claydon for the [2011 Node Knockout](http://nodeknockout.com).
