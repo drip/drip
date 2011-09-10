@@ -1,4 +1,4 @@
-var AppView = Backbone.View.extend({
+D.AppView = Backbone.View.extend({
 
   tagName: 'div',
   className: 'clearfix repositories',
