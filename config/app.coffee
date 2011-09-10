@@ -2,8 +2,8 @@ express = exports.express = require 'express'
 app     = exports.app     = express.createServer()
 
 app.configure ->
-  app.set 'views', __dirname + '/views'
-  app.use express.static __dirname + '/public' 
+  app.set 'views', __dirname + '/../views'
+  app.use express.static __dirname + '/../public' 
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.cookieParser()
