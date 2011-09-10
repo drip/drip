@@ -19,11 +19,19 @@ drip has the following requirements:
 * redis (for resque, and scheduling and working of builds)
 * mongodb (for storage of build statistics)
 
+## Compiling
+
+    coffee -c **/*.coffee
+
 ## Testing
 
-Run:
-  
     npm test
+
+## Running
+
+Be sure to have the following environment variables set:
+
+    NODE_ENV, PORT, REDIS_URL, REDIS_PORT, REDIS_HOST, MONGO_URL
 
 ## Authors
 
