@@ -1,3 +1,8 @@
 node_modules
 .monitor
 npm-debug.log
+config/*.js
+controllers/*.js
+lib/*.js
+models/*.js
+script/*.js
