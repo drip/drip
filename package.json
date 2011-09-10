@@ -27,7 +27,6 @@
     "vows": "~0.5.11"
   },
   "scripts":{ 
-    "test": "vows spec/* --spec",
-    "compile": "coffee -c **/*.coffee"
+    "test": "vows spec/* --spec"
   }
 }
