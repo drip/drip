@@ -1,5 +1,5 @@
-app     = require('../app').app
-express = require('../app').express
+app     = require('../config/app').app
+express = require('../config/app').express
 
 app.configure 'test', 'development', ->
   app.use express.errorHandler 

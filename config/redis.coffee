@@ -1,5 +1,5 @@
 redis   = require('redis')
-app     = require('../app').app
+app     = require('../config/app').app
 creds   = app.set('credentials').redis
 
 client = redis.createClient(creds.port, creds.host)

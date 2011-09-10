@@ -11,11 +11,11 @@ app.configure ->
   app.use app.router
   app.set 'view engine', 'jade'
 
-credentials   = require './config/credentials'
-routes        = require './config/routes'
-mongoose      = require './config/mongoose'
-sockets       = require './lib/sockets'
-environments  = require './config/environments'
+credentials   = require './credentials'
+routes        = require './routes'
+mongoose      = require './mongoose'
+environments  = require './environments'
+sockets       = require '../lib/sockets'
 
 exports.start = (port) -> 
   app.listen port, ->

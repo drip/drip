@@ -1,5 +1,5 @@
 mongoose = require 'mongoose'
-app      = require('../app').app
+app      = require('../config/app').app
 creds    = app.set('credentials').mongo
 
 exports = mongoose.connect creds.url, (err) ->

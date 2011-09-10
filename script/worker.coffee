@@ -141,7 +141,7 @@ Jobs =
     callback build
 
 worker        = resque.worker('builder', Jobs)
-workerCleanup = require('./lib/worker.js').workerCleanup
+workerCleanup = require('../lib/worker.js').workerCleanup
 
 worker.on 'job', (worker, queue, job) ->
   console.log 'Attempting job; worker: ' + worker + ' queue: ' + queue + ' job: ' + job

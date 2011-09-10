@@ -1,4 +1,4 @@
-app = require('../app').app
+app = require('../config/app').app
 
 io                = require('socket.io').listen(app)
 RepositorySchema  = require('../models/repository').RepositorySchema

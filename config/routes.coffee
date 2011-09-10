@@ -1,4 +1,4 @@
-app = require('../app').app
+app = require('../config/app').app
 
 Index        = require '../controllers/index'
 Repositories = require '../controllers/repositories'

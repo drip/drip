@@ -1,1 +1,1 @@
-require('../app').start process.env.PORT
+require('../config/app').start process.env.PORT

@@ -1,5 +1,5 @@
 resque  = require 'coffee-resque'
-app     = require('../app').app;
+app     = require('../config/app').app;
 creds   = app.set('credentials').redis
 
 exports = resque.connect
