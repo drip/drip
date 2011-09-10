@@ -24,7 +24,7 @@ exports.RepositorySchema = new Schema
 
 exports.Repository = mongoose.model 'Repository', exports.RepositorySchema
 
-exports.Repository.prototype.toJSON = toJSON () ->
+exports.Repository.prototype.toJSON = ->
   obj = this.toObject
   obj.builds = obj.builds.reverse()
   obj
