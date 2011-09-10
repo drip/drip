@@ -10,5 +10,10 @@ exports.zombie.browser = new exports.zombie.Browser
 
 exports.tobi                = require 'tobi'
 
+exports.tobi.get = (path, callback) ->
+  browser = exports.tobi.createBrowser(app)
+  browser.get(path, { headers: exports.headers.jsonHeaders }, callback)
+  return
+
 exports.headers             = {}
 exports.headers.jsonHeaders = { 'Content-Type': 'application/json' }
