@@ -1,5 +1,5 @@
-Mongoose    = require('mongoose').Connection
-Schema      = <ongoose.Schema
+Mongoose    = require('mongoose')
+Schema      = Mongoose.Schema
 ObjectId    = Schema.ObjectId
 BuildSchema = require("./build").BuildSchema
 

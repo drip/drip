@@ -1,4 +1,4 @@
-Mongoose  = require('mongoose').Connection
+Mongoose  = require('mongoose')
 Schema    = Mongoose.Schema
 ObjectId  = Schema.ObjectId
 
