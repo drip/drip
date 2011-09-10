@@ -4,13 +4,13 @@ assert       = require('../spec_helper').assert
 assertStatus = require('../spec_helper').assertStatus
 
 vows
-	.describe('Index')
+	.describe('index')
 	.addBatch
 
-		'GET /':
-			topic: -> client.get('/')
+    'when requesting the index':
+      topic: -> client.get('/')
 
-			'should respond with a 200 ok': (topic) ->
-				assertStatus(200)
+      'should respond with a 200 ok': (response) ->
+        assertStatus(200)
 
 	.export(module)
