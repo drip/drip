@@ -1,7 +1,7 @@
 var sys         = require('sys'),
     spawn       = require('child_process').spawn,
-    Repository  = require('./models/repository.js').Repository,
-    Build       = require('./models/build.js').Build,
+    Repository  = require('./models/repository').Repository,
+    Build       = require('./models/build').Build,
     resque      = require('./config/resque'),
     mongoose    = require('./config/mongoose'),
     redis       = require('./config/redis'),
@@ -83,14 +83,18 @@ var Jobs = {
         cmdOut.bind(name, buildFinish);
       };
 
-      // Finish the build.
+      // Finish the build and cleanup.
       var buildFinish = function() { 
+        var name = 'finish';
         build.finishedAt = Date.now();
-        console.log("finishing build at ["+build.finishedAt+"]...");
+        console.log("finishing build and cleaning-up ["+build.finishedAt+"]...");
         build.completed  = true;
         build.running    = false;
         build.successful = stepsSuccessful;
         repository.save(function (err) { if (err) throw err; });
+        
+        cmds[name] = spawn('rm',['-vrf', workingDir]);
+        cmdOut.bind(name);
       };
 
       // Handle the output.
