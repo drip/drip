@@ -72,6 +72,8 @@ var RepositoryView = Backbone.View.extend({
     var pane = $('<div class="pane"></div>');
     pane.html('<div class="select_repository">Please select a repository on the left</div>');
     $(".main_pane").replaceWith(pane);
+
+    appRouter.navigate("/repositories");
   }
 
 });

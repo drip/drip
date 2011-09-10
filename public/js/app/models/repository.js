@@ -4,8 +4,11 @@ var Repository = Backbone.Model.extend({
   urlRoot: '/repositories',
 
   initialize: function (attrs) {
-    if (attrs.name) { this.id = attrs.name; }
+    if (attrs.name)   this.id = attrs.name;
+    if (attrs.builds) this.setupBuildList();
     this.bind("change", this.setupBuildList, this);
+    this.bind("destroy", function () {
+    }, this);
   },
 
   setupBuildList: function () {
@@ -46,7 +49,7 @@ var Repository = Backbone.Model.extend({
     // when a new instance: /repositories
     var url = base;
     
-    if(!this.isNew()) {
+    if (!this.isNew()) {
       // when an existing instance: /repositories/:ownerName/:id
       url = base + ((this.owner ? this.owner.name : null) || this.get('ownerName')) + '/' + this.id;
     }

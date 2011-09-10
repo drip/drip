@@ -15,7 +15,7 @@ var RepositoryListView = Backbone.View.extend({
         });
 
     _.each(groups, function (repositories, ownerName) {
-      innerNode.append("<li class='clearfix owner_name'><span class='user_icon'></span>" + ownerName + "</li>");
+      innerNode.append("<li class='clearfix owner_name' id='owner_" + ownerName + "'><span class='user_icon'></span>" + ownerName + "</li>");
       _.each(repositories, function (repository) {
         var listItem = new RepositoryListItemView({ model: repository });
         innerNode.append(listItem.render().el);
@@ -46,7 +46,7 @@ var RepositoryListItemView = Backbone.View.extend({
     "click": "show"
   },
 
-  intialize: function () {
+  initialize: function () {
     _.bindAll(this);
     this.model.bind("reset", this.render);
     this.model.bind("destroy", this.remove);
@@ -64,11 +64,7 @@ var RepositoryListItemView = Backbone.View.extend({
     appRouter.navigate("/" + repo.get("ownerName") + "/" + repo.get("name"));
     this.select();
 
-    new RepositoryView({model: repo});
-    repo.fetch({success: function () {
-      repo.trigger("change");
-    }});
-
+    new RepositoryView({model: repo}).render();
   },
 
   select: function () {
@@ -77,6 +73,16 @@ var RepositoryListItemView = Backbone.View.extend({
   },
 
   remove: function () {
+    var model = this.model,
+        bySameOwner = this.model.collection.filter(function (r) { 
+          return r.get("ownerName") === model.get("ownerName"); 
+        }), ownerNode;
+
+    if (bySameOwner.length < 2) {
+      ownerNode = $("#owner_" + this.model.get("ownerName"));
+      ownerNode.remove();
+    }
+
     $(this.el).remove();
   }
 
