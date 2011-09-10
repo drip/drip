@@ -36,4 +36,4 @@ exports.triggerRepositoryBuild = (repository, branch, callback) ->
       repositoryId: repository.id
     ]
 
-    callback
+    callback()
