@@ -27,11 +27,12 @@ if (!module.parent) {
   app.listen(process.env.NODE_ENV === 'production' ? process.env.PORT : 8000, function() {
     console.log('Ready');
 
-    if (process.getuid() === 0)
-      require('fs').stat(__filename, function(err, stats) {
+    if (process.getuid() === 0) {
+      require('fs').stat(__filename, function (err, stats) {
         if (err) return console.log(err)
         process.setuid(stats.uid);
       });
+    }
 
     console.log('Listening on ' + app.address().port);
   });
