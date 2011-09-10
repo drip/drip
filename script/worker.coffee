@@ -1,5 +1,5 @@
 sys         = require('sys')
-spawn       = require('child_process').spawn
+Spawn       = require('child_process').spawn
 Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
 Resque      = require('../config/resque').Connection
@@ -47,31 +47,31 @@ Jobs =
         name = 'mkdir'
         workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_')
         console.log "making directory ["+workingDir+"]..."
-        cmds[name] = spawn('mkdir',['-vp',workingDir])
+        cmds[name] = Spawn('mkdir',['-vp',workingDir])
         cmdOut.bind(name, spawnClone)
 
       spawnClone = ->
         name = 'clone'
         console.log "cloning ["+repository.url+"]..."
-        cmds[name] = spawn('git', ['clone', repository.url, workingDir], { cwd: workingDir, setsid: false })
+        cmds[name] = Spawn('git', ['clone', repository.url, workingDir], { cwd: workingDir, setsid: false })
         cmdOut.bind(name, spawnCheckout)
       
       spawnCheckout = ->
         name = 'checkout'
         console.log "checkout ["+build.branch+"]..."
-        cmds[name] = spawn('git', ['checkout',build.branch], {cwd: workingDir, setsid: false})
+        cmds[name] = Spawn('git', ['checkout',build.branch], {cwd: workingDir, setsid: false})
         cmdOut.bind(name, spawnNpmInstall)
 
       spawnNpmInstall = ->
         name = 'npm_install'
         console.log("running npm install...")
-        cmds[name] = spawn('npm',['install'], {cwd: workingDir})
+        cmds[name] = Spawn('npm',['install'], {cwd: workingDir})
         cmdOut.bind(name, spawnNpmTest)
 
       spawnNpmTest = ->
         name = 'npm_test'
         console.log("running npm test...")
-        cmds[name] = spawn('npm',['test'], {cwd: workingDir})
+        cmds[name] = Spawn('npm',['test'], {cwd: workingDir})
         cmdOut.bind(name, buildFinish)
 
       buildFinish = ->
@@ -85,7 +85,7 @@ Jobs =
           if err
             throw err
         
-        cmds[name] = spawn('rm',['-vrf', workingDir])
+        cmds[name] = Spawn('rm',['-vrf', workingDir])
         cmdOut.bind(name)
 
       cmdOut =
