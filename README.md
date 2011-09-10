@@ -11,7 +11,7 @@ drip has the following requirements:
 
 ## Authors
 
-drip was written by [Christopher Meiklejohn](mailto:christopher.meiklejohn@gmail.com), Simon Højberg, and Barnaby Claydon for the [2011 Node Knockout](http://nodeknockout.com).
+drip was written by [Christopher Meiklejohn](mailto:christopher.meiklejohn@gmail.com), [Simon Højberg](http://twitter.com/shojberg), and Barnaby Claydon for the [2011 Node Knockout](http://nodeknockout.com).
 
 ## License
 
