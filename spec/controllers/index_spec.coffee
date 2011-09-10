@@ -1,16 +1,17 @@
 vows         = require('../spec_helper').vows
 client       = require('../spec_helper').client
-assert       = require('../spec_helper').assert
-assertStatus = require('../spec_helper').assertStatus
+tobi         = require('../spec_helper').tobi
+jsonHeaders  = require('../spec_helper').headers.jsonHeaders
 
 vows
 	.describe('index')
 	.addBatch
 
     'when requesting the index':
-      topic: -> client.get('/')
+      topic: ->
+        tobi.get('/', @callback)
 
-      'should respond with a 200 ok': (response) ->
-        assertStatus(200)
+      'should respond with a 200 ok': (response, $) ->
+        response.should.have.status(200)
 
 	.export(module)
