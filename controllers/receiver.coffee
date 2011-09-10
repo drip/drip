@@ -1,6 +1,5 @@
 Repository  = require('../models/repository.js').Repository
 Build       = require('../models/build.js').Build
-resque      = require('../config/resque')
 
 findOrCreateRepository = require('../lib/repositories.js').findOrCreateRepository
 triggerRepositoryBuild = require('../lib/repositories.js').triggerRepositoryBuild

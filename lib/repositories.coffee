@@ -1,6 +1,6 @@
 Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
-resque      = require('../config/resque')
+Resque      = require('../config/resque').Connection
 
 exports.findOrCreateRepository = (desired_repository, callback) ->
   Repository.findOne { ownerName: desired_repository.ownerName, name: desired_repository.name  }, (err, repository) ->
@@ -16,9 +16,9 @@ exports.findOrCreateRepository = (desired_repository, callback) ->
       if err
         throw err
 
-    console.log 'Found/created repository for ' + repository.url
+      console.log 'Found/created repository for ' + repository.url
 
-    callback err, repository
+      callback err, repository
 
 exports.triggerRepositoryBuild = (repository, branch, callback) ->
   build = new Build
@@ -31,7 +31,7 @@ exports.triggerRepositoryBuild = (repository, branch, callback) ->
 
     console.log 'Scheduling build for ' + repository.url + '/' + branch
 
-    resque.enqueue 'builder', 'build', [
+    Resque.enqueue 'builder', 'build', [
       buildId: build.id,
       repositoryId: repository.id
     ]

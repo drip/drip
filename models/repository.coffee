@@ -1,5 +1,5 @@
-mongoose    = require('mongoose')
-Schema      = mongoose.Schema
+Mongoose    = require('mongoose').Connection
+Schema      = <ongoose.Schema
 ObjectId    = Schema.ObjectId
 BuildSchema = require("./build").BuildSchema
 
@@ -21,7 +21,7 @@ exports.RepositorySchema = new Schema
 			v.length > 0
 	builds: [BuildSchema]
 
-exports.Repository = mongoose.model 'Repository', exports.RepositorySchema
+exports.Repository = Mongoose.model 'Repository', exports.RepositorySchema
 
 exports.Repository.prototype.toJSON = ->
   obj = this.toObject

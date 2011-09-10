@@ -15,4 +15,4 @@ client.on 'error', (err) ->
 client.on 'connect', (err) ->
   console.log 'Connected to Redis'
 
-exports = client
+exports.Connection = client

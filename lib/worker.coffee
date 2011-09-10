@@ -12,10 +12,10 @@ exports.workerCleanup = () ->
         console.log 'Found build: ' + build.id
 
         if build.running
-          build.completed  = true;
-          build.running    = false;
-          build.successful = false;
-          build.finishedAt = Date.now();
+          build.completed  = true
+          build.running    = false
+          build.successful = false
+          build.finishedAt = Date.now()
 
           repository.save (err) ->
             if err

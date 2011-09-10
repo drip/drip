@@ -2,8 +2,8 @@ app     = require('../config/app').app
 express = require('../config/app').express
 
 app.configure 'test', 'development', ->
-  app.use express.errorHandler 
-    dumpExceptions: true 
+  app.use express.errorHandler
+    dumpExceptions: true
     showStack: true
 
 app.configure 'production', ->

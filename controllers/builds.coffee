@@ -1,4 +1,4 @@
-redis       = require('../config/redis')
+Redis       = require('../config/redis').Connection
 Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
 
@@ -28,7 +28,7 @@ exports.show = (request, response) ->
       build = repository.builds.id id
 
       if build
-        redis.lrange "builds:" + build.id, 0, -1, (err, output) ->
+        Redis.lrange "builds:" + build.id, 0, -1, (err, output) ->
           if err
             throw err
 

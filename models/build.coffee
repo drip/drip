@@ -1,13 +1,13 @@
-mongoose  = require('mongoose')
-Schema    = mongoose.Schema
+Mongoose  = require('mongoose').Connection
+Schema    = Mongoose.Schema
 ObjectId  = Schema.ObjectId
 
 exports.BuildSchema = new Schema
-  completed:  
+  completed:
     type: Boolean
     index: true
     default: false
-  successful: 
+  successful:
     type: Boolean
   running:
     type: Boolean
@@ -25,4 +25,4 @@ exports.BuildSchema = new Schema
   output:
     type: String
 
-exports.Build = mongoose.model 'Build', exports.BuildSchema
+exports.Build = Mongoose.model 'Build', exports.BuildSchema
