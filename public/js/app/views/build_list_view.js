@@ -1,4 +1,4 @@
-var BuildListView = Backbone.View.extend({
+D.BuildListView = Backbone.View.extend({
   tagName: 'div',
   className: 'builds',
 
@@ -18,7 +18,7 @@ var BuildListView = Backbone.View.extend({
     latestBuildNode.append(latestListNode);
 
     _.each(this.collection.toArray(), function (build, i) {
-      var listItem = new BuildListItemView({model: build});
+      var listItem = new D.BuildListItemView({model: build});
       if (i === 0) {
         latestListNode.append(listItem.render().el);
         if (build.get("_id") === list.selectedBuild) {
@@ -41,7 +41,7 @@ var BuildListView = Backbone.View.extend({
 
 });
 
-var BuildListItemView = Backbone.View.extend({
+D.BuildListItemView = Backbone.View.extend({
   tagName: 'li',
   className: 'build_list_item',
 
@@ -61,11 +61,11 @@ var BuildListItemView = Backbone.View.extend({
   },
 
   show: function () {
-    appRouter.navigate("/" + this.model.get("repository").ownerName + "/" + this.model.get("repository").name + "/" + this.model.id);
+    D.appRouter.navigate("/" + this.model.get("repository").ownerName + "/" + this.model.get("repository").name + "/" + this.model.id);
     this.select();
     
-    var build = new Build(this.model.attributes);
-    new BuildView({model: build});
+    var build = new D.Build(this.model.attributes);
+    new D.BuildView({model: build});
         
     build.fetch();
   },
@@ -74,7 +74,5 @@ var BuildListItemView = Backbone.View.extend({
     $(".build_list_item").removeClass("current");
     $(this.el).addClass("current");
   }
-
-
 
 });

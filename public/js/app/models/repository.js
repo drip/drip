@@ -1,4 +1,4 @@
-var Repository = Backbone.Model.extend({
+D.Repository = Backbone.Model.extend({
   defaults: { buildList: null },
 
   urlRoot: '/repositories',
@@ -14,7 +14,7 @@ var Repository = Backbone.Model.extend({
         bl;
 
     if (!this.get("buildList") && builds && builds.length > 0) { 
-      bl = new BuildList();
+      bl = new D.BuildList();
 
       // enrich builds with repository meta data
       _.each(builds, function (b) {
@@ -22,7 +22,7 @@ var Repository = Backbone.Model.extend({
           name:       repo.get("name"),
           ownerName:  repo.get("ownerName")
         };
-        bl.add(new Build(b))
+        bl.add(new D.Build(b))
       });
 
       this.set({buildList: bl}, {silent:true});
@@ -46,7 +46,7 @@ var Repository = Backbone.Model.extend({
     // when a new instance: /repositories
     var url = base;
     
-    if(!this.isNew()) {
+    if (!this.isNew()) {
       // when an existing instance: /repositories/:ownerName/:id
       url = base + ((this.owner ? this.owner.name : null) || this.get('ownerName')) + '/' + this.id;
     }

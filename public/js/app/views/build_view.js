@@ -1,4 +1,4 @@
-var BuildView = Backbone.View.extend({
+D.BuildView = Backbone.View.extend({
     
   tagName: 'div',
   className: 'pane build_details',

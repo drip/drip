@@ -1,4 +1,4 @@
-var RepositoryView = Backbone.View.extend({
+D.RepositoryView = Backbone.View.extend({
 
   tagName: 'div',
   className: 'pane',
@@ -26,20 +26,20 @@ var RepositoryView = Backbone.View.extend({
     el.html(frag);
 
     if (this.model.get('buildList')) { 
-      el.append(new BuildListView({
+      el.append(new D.BuildListView({
         collection: this.model.get("buildList"),
         selectedBuild: this.selectedBuild
       }).render().el);
     }
     else {
-      el.append("This repository has no builds yet ☹");
+      el.append("<div class='no_builds'>This repository has no builds yet ☹</div>");
     }
 
     return this;
   },
   
   showAdd: function() {
-    appRouter.navigate("/repositories/new", true);
+    D.appRouter.navigate("/repositories/new", true);
   }
 
 });
