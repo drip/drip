@@ -6,3 +6,5 @@ controllers/*.js
 lib/*.js
 models/*.js
 script/*.js
+spec/*.js
+spec/**/*.js
