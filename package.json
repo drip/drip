@@ -24,10 +24,12 @@
     "coffee-script": "~1.1.2"
   },
   "devDependencies": {
-    "vows": "~0.5.11",
-    "tobi": "~0.3.1",
+    "vows": "~0.5.0",
+    "tobi": "~0.2.0",
     "assert": "~0.4.9",
-    "zombie": "~0.10.1"
+    "zombie": "~0.10.1",
+    "should": "~0.3.1",
+    "nodemon": "~0.5.5"
   },
   "scripts":{ 
     "test": "vows spec/* --spec"
