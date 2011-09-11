@@ -1,4 +1,4 @@
-var D.PopoverNav = Backbone.View.extend({
+D.PopoverNav = Backbone.View.extend({
   tagName: 'div',
   className: 'popover_nav',
 

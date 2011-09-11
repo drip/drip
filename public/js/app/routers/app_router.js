@@ -66,7 +66,7 @@ D.AppRouter = Backbone.Router.extend({
       var repository = repositoryList.find(function (r) {
         return r.get("ownerName") === ownerName && r.get("name") === name;
       });
-      new RepositoryView({model: repository, selectedBuild: id}).render();
+      new D.RepositoryView({model: repository, selectedBuild: id}).render();
     });
     
     repositoryList.fetch();

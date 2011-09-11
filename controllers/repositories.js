@@ -1,5 +1,6 @@
 (function() {
-  var Build, Repository, findOrCreateRepository, triggerRepositoryBuild;
+  var Build, Redis, Repository, findOrCreateRepository, triggerRepositoryBuild;
+  Redis = require('../config/redis').Connection;
   Repository = require('../models/repository').Repository;
   Build = require('../models/build').Build;
   findOrCreateRepository = require('../lib/repositories').findOrCreateRepository;
@@ -70,7 +71,7 @@
       }
       if (repository && repository.builds) {
         repository.builds.forEach(function(build) {
-          return redis.del("builds:" + build.id);
+          return Redis.del("builds:" + build.id);
         });
       }
       repository.remove();
