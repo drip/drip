@@ -28,14 +28,16 @@ D.Repository = Backbone.Model.extend({
         bl.add(new D.Build(b))
       });
 
-      this.set({buildList: bl}, {silent:true});
+      this.set({buildList: bl}, {silent: true});
     }
   },
 
   validate: function (attrs) {
+    /*
     if (!attrs || !attrs.url) {
       return "Please enter a github repository url";
     }
+    */
   },
   
   url: function () {

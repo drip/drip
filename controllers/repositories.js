@@ -20,8 +20,10 @@
       repository.url = repository.url.replace(/\.git$/, "");
     }
     return findOrCreateRepository(repository, function(repository) {
-      return triggerRepositoryBuild(repository, branch, function() {
-        return response.send("OK");
+      return triggerRepositoryBuild(repository, branch, function(build) {
+        return response.send({
+          buildId: build.id
+        });
       });
     });
   };

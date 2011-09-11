@@ -9,13 +9,12 @@ D.Build = Backbone.Model.extend({
     if (!this.get("completed")) {
       this.refreshUntilComplete();
     }
-
   },
 
   refreshUntilComplete: function () {
     var build = this;
     var interval = setInterval(function () {
-      if (build.get("completed") || !build.get("running")) {
+      if (build.get("completed")) {
         build.trigger("change:completed");
         clearInterval(interval);
       }
@@ -24,7 +23,7 @@ D.Build = Backbone.Model.extend({
           //build.trigger("change");
         }});
       }
-    }, 300);
+    }, 1000);
   },
 
   setLabel: function () {
