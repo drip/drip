@@ -148,25 +148,32 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .repository_list ul                                     { list-style: none; margin: 0; padding: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.repository_list ul li                                  { padding: 8px 10px; cursor: pointer;
+.repository_list ul li                                  { padding: 8px 10px; cursor: pointer; color: #aaa;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .repository_list ul li:hover                            { color: @grayLight; background: fadeout(@black, 95%); border-top: 1px solid fadeout(@black, 80%); }
 .repository_list ul li:first-child                      { border-top: 0; }
-.repository_list ul li.owner_name                       { color: @white; }
+.repository_list ul li.owner_name                       { color: #555; }
 .repository_list ul li.owner_name span.user_icon        { width: 16px; height: 16px; background: url(/img/user_icon.png) no-repeat center; display: inline-block; margin-right: 10px; float: left; margin-top: 1px;
-  opacity: 0.3; 
+  opacity: 0.1; 
 }
 
 .repository_list ul li.current                          { background: fadeout(@black, 80%); color: @white; border-top: 1px solid fadeout(@black, 80%);  }
 
-.repository_list ul li .build_result                    { float: right; width: 16px; height: 16px; margin-right: 10px; display: none; }
+.repository_list ul li .build_result                    { float: right; width: 16px; height: 16px; margin-top: 2px; 
+  opacity: 0.3; 
+} 
 .repository_list ul li.success  .build_result           { background: url(/img/success_icon.png); }
 .repository_list ul li.failure  .build_result           { background: url(/img/failed_icon.png); }
-.repository_list ul li.running  .build_result           { background: url(/img/running.gif); }
+.repository_list ul li.running  .build_result           { background: url(/img/running.gif); 
+  opacity: 1;
+}
 .repository_list ul li.unknown  .build_result           { background: url(/img/unknown_icon.png); }
 
+.repository_list ul li.current .build_result            { 
+  opacity: 1; 
+}
 
 .add_new_repo_button                                    { display: inline-block; margin: 10px; cursor: pointer; position: absolute; bottom: -42px; left: 40px; 
   font-size: 12px !important;
@@ -211,7 +218,7 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .builds .failure .build_icon                            { background: url(/img/failed_icon.png); }
 .builds .success .build_icon                            { background: url(/img/success_icon.png); }
 .builds .unknown .build_icon                            { background: url(/img/unknown_icon.png); }
-.builds .running .build_icon                            { background: url(/img/running.gif); }
+.builds .running .build_icon                            { background: url(/img/running_blue.gif); }
 
 
 /* --- build view --- */

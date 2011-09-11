@@ -22,6 +22,7 @@ D.RepositoryView = Backbone.View.extend({
     frag.find(".build_result").addClass(this.model.status());
 
     this.el = $(this.el);
+    this.el.data("repository_cid", this.model.cid);
 
     if (this.el.find(".repo_header").length > 0) {
       this.el.find(".repo_header").replaceWith(frag);
@@ -46,9 +47,12 @@ D.RepositoryView = Backbone.View.extend({
     else {
       this.el.append(buildList);
     }
-
+    
     if ($(".empty_pane").length > 0) {
       $(".empty_pane").replaceWith(this.el);
+    }
+    else if ($(".main_pane").length > 0 && $(".main_pane").data("repository_cid") !== this.el.cid) {
+      $(".main_pane").replaceWith(this.el);
     }
 
     return this;
