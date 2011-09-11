@@ -33,7 +33,7 @@ D.BuildView = Backbone.View.extend({
   
   parseOutput: function() {
     var red = [], //["failure", "fail", "fatal", "error", "uncaught", "err"],
-        green = ["✓"], //, "success", "successful"],
+        green = ["✓", "✓"], //, "success", "successful"],
         output;
 
     output = this.model.get("output").replace(/\n/g,'<br>').replace(/\033\[[0-9;]*m/g,"");

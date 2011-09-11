@@ -38,16 +38,18 @@ D.AddRepositoryView = Backbone.View.extend({
 
     this.model.save({url: url,
                      name: name,
-                     owner:{name: ownerName},
+                     owner: {name: ownerName},
                     },
                     {
-                      error: function(model, response) {
-                        // errorMessageNode.html("Could not save").show();
-                        // KLUDGE: why is error being called? :(
-                        D.appRouter.navigate("/" + model.get("owner").name + "/" + model.get("name"), true);
+                      error: function (model, response) {
+                        errorMessageNode.html("Could not save").show();
                       },
-                      success: function(model, response){
-                        D.appRouter.navigate("/" + model.get("ownerName") + "/" + model.get("name"), true);
+                      success: function (model, response) {
+                        D.appRouter.navigate(
+                          "/" + model.get("owner").name + 
+                          "/" + model.get("name") +
+                          "/" + response.buildId
+                        , true);
                       }
                    });
   },

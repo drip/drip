@@ -21,8 +21,8 @@ exports.create = (request, response) ->
     repository.url = repository.url.replace(/\.git$/,"")
 
   findOrCreateRepository repository, (repository) ->
-    triggerRepositoryBuild repository, branch, ->
-      response.send "OK"
+    triggerRepositoryBuild repository, branch, (build) ->
+      response.send {buildId: build.id}
 
 exports.list = (request, response) ->
   query =
