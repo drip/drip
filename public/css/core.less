@@ -56,6 +56,20 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
   .box-shadow(0 0 3px rgba(171, 41, 32, 0.25));
 }
 
+/* --- ipopover nav --- */
+.popover_nav                                            { position: absolute; padding: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  .border-radius(5px); 
+  .box-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+}
+.popover_nav:after, .popover_nav:before                 { border: solid transparent; content: ' '; height: 0; bottom: 100%; position: absolute; width: 0; }
+
+.popover_nav:after                                      { border-width: 6px; left: 50%; margin-left: -6px; 
+  border-bottom-color: rgba(0, 0, 0, 0.8);
+}
+
+.popover_nav ul                                         { margin: 0; }
+
 /* =LAYOUT
 ================================================== */
 #main_logo                                              { margin-left: 40px; background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; margin-top: 20px; }
@@ -145,7 +159,6 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
   opacity: 0.3; 
 }
 
-
 .repository_list ul li.current                          { background: fadeout(@black, 80%); color: @white; border-top: 1px solid fadeout(@black, 80%);  }
 
 .repository_list ul li .build_result                    { float: right; width: 16px; height: 16px; margin-right: 10px; display: none; }
@@ -169,6 +182,13 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .pane_header .build_result.running                      { background: url(/img/header_running.png); width: 104px; }
 .pane_header .build_result.unknown                      { background: url(/img/header_unknown.png); width: 104px; }
 
+.pane_header .title                                     { float: left; }
+.pane_header .wrench_icon                               { background: url(/img/wrench_icon.png); width: 16px; height: 16px; float: left; margin-left: 10px; margin-top: 3px; cursor: pointer;
+  opacity: 0.3;
+}
+.pane_header .wrench_icon:hover                         {
+  opacity: 1;
+}
 .pane .no_builds                                        { text-align: center; padding: 40px; }
 
 /* --- build list view --- */
