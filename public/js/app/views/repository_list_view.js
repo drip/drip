@@ -15,7 +15,7 @@ D.RepositoryListView = Backbone.View.extend({
         });
 
     _.each(groups, function (repositories, ownerName) {
-      innerNode.append("<li class='clearfix owner_name'><span class='user_icon'></span>" + ownerName + "</li>");
+      innerNode.append("<li class='clearfix owner_name' id='owner_" + ownerName + "'><span class='user_icon'></span>" + ownerName + "</li>");
       _.each(repositories, function (repository) {
         var listItem = new D.RepositoryListItemView({ model: repository });
         innerNode.append(listItem.render().el);
@@ -46,9 +46,10 @@ D.RepositoryListItemView = Backbone.View.extend({
     "click": "show"
   },
 
-  intialize: function () {
+  initialize: function () {
     _.bindAll(this);
     this.model.bind("reset", this.render);
+    this.model.bind("destroy", this.remove);
   },
 
   render: function () {
@@ -58,20 +59,31 @@ D.RepositoryListItemView = Backbone.View.extend({
   },
 
   show: function () {
-    D.appRouter.navigate("/" + this.model.get("ownerName") + "/" + this.model.get("name"));
+    var repo = this.model;
+
+    D.appRouter.navigate("/" + repo.get("ownerName") + "/" + repo.get("name"));
     this.select();
 
-    var repository = new D.Repository(this.model.attributes);
-    new D.RepositoryView({model: repository});
-    repository.fetch({success: function () {
-      repository.trigger("change");
-    }});
-
+    new D.RepositoryView({model: repo}).render();
   },
 
   select: function () {
     $(".repository_list_item").removeClass("current");
     $(this.el).addClass("current");
+  },
+
+  remove: function () {
+    var model = this.model,
+        bySameOwner = this.model.collection.filter(function (r) { 
+          return r.get("ownerName") === model.get("ownerName"); 
+        }), ownerNode;
+
+    if (bySameOwner.length < 2) {
+      ownerNode = $("#owner_" + this.model.get("ownerName"));
+      ownerNode.remove();
+    }
+
+    $(this.el).remove();
   }
 
 });
