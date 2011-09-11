@@ -5,5 +5,5 @@
   } else {
     port = process.env.PORT || 8000;
   }
-  require('../config/app').start(process.env.PORT);
+  require('../config/app').start(port);
 }).call(this);

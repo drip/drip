@@ -3,4 +3,4 @@ if process.env.NODE_ENV is 'production'
 else
   port = process.env.PORT || 8000
 
-require('../config/app').start process.env.PORT
+require('../config/app').start port
