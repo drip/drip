@@ -2,7 +2,7 @@
   "author": "drip <drip@drip.io>",
   "name": "drip",
   "description": "npm continuous integration",
-  "version": "0.0.1-1",
+  "version": "0.0.1-5",
   "repository": {
     "url": "https://github.com/drip/drip.git"
   },

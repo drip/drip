@@ -31,7 +31,7 @@ drip has the following requirements:
 
 Be sure to have the following environment variables set:
 
-    NODE_ENV, PORT, REDIS_URL, REDIS_PORT, REDIS_HOST, MONGO_URL
+    MONGO_URL, REDIS_URL
 
 ## Authors
 

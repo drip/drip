@@ -46,15 +46,6 @@ vows
 	.addBatch
 
     'with a repository':
-      topic: ->
-        attributes =
-          name:      'testrepo'
-          ownerName: 'testuser'
-        repository = new Repository attributes
-        repository.save, ->
-          Repository.findOne attributes, (err, repository) ->
-            @callback repository
-        return
 
       'when requesting one repository':
         topic: (repository) ->
