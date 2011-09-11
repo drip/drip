@@ -9,17 +9,11 @@ vows
 	.describe('repositories')
 	.addBatch
 
+    'when creating a new repository': 'pending'
+	
+  .addBatch
+
     'with a repository':
-      topic: ->
-        repository = new Repository
-          name:      'winston'
-          ownerName: 'indexzero'
-        repository.save @callback
-        return
-
-      'when creating a new repository': 'pending'
-
-      'when deleting repository': 'pending'
 
       'when requesting the repository list':
         topic: (repository) ->
@@ -33,8 +27,51 @@ vows
 
         'should contain the repository we just created': 'pending'
 
-      'when requesting the repository list by name': 'pending'
+	.addBatch
 
-      'when requesting one repository': 'pending'
+    'with a repository':
+
+      'when requesting the repository list by name':
+        topic: (repository) ->
+          tobi.get('/repositories/testrepo', @callback)
+
+        'should respond with a 200 ok': (response, $) ->
+          response.should.have.status(200)
+
+        'should return a list of repositories': (response, $) ->
+          response.body.should.be.an.instanceof(Array)
+
+        'should contain the repository we just created': 'pending'
+
+	.addBatch
+
+    'with a repository':
+      topic: ->
+        attributes =
+          name:      'testrepo'
+          ownerName: 'testuser'
+        repository = new Repository attributes
+        repository.save, ->
+          Repository.findOne attributes, (err, repository) ->
+            @callback repository
+        return
+
+      'when requesting one repository':
+        topic: (repository) ->
+          tobi.get('/repositories/testuser/testrepo', @callback)
+
+        'should respond with a 200 ok': (response, $) ->
+          response.should.have.status(200)
+
+        'should return a  of repositories': (response, $) ->
+          response.body.should.be.an.instanceof(Object)
+
+        'should contain the repository we just created': 'pending'
+
+	.addBatch
+
+    'with a repository':
+    
+      'when deleting repository': 'pending'
 
 	.export(module)
