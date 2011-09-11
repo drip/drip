@@ -4,11 +4,11 @@ Drip is continuous integration for npm.
 
 ## Running
 
-Starting the server:
+Starting the entire application:
 
-    node script/server.js
+    node script/init.js
 
-Starting workers:
+Starting just a worker:
 
     node script/worker.js
 
