@@ -15,25 +15,41 @@ D.RepositoryView = Backbone.View.extend({
   },
 
   render: function () {
-    var frag = $(_.template($("#repository_show_template").html(), {name: this.model.get("name")}));
+    var frag = $(_.template($("#repository_show_template").html(), 
+                            {name: this.model.get("name")})),
+        buildList;
 
     frag.find(".build_result").addClass(this.model.status());
 
     this.el = $(this.el);
 
-    this.el.html(frag);
-
-    if (this.model.get('buildList')) { 
-      this.el.append(new D.BuildListView({
-        collection: this.model.get("buildList"),
-        selectedBuild: this.selectedBuild
-      }).render().el);
+    if (this.el.find(".repo_header").length > 0) {
+      this.el.find(".repo_header").replaceWith(frag);
     }
     else {
-      this.el.append("<div class='no_builds'>This repository has no builds yet ☹</div>");
+      this.el.html(frag);
     }
 
-    $(".pane").replaceWith(this.el);
+    if (this.model.get('buildList')) {
+      buildList = new D.BuildListView({
+        collection:     this.model.get("buildList"),
+        selectedBuild:  this.selectedBuild
+      }).render().el;
+    }
+    else {
+      buildList = "<div class='no_builds'>This repository has no builds yet ☹</div>";
+    }
+
+    if (this.el.find(".builds").length > 0) {
+      this.el.find(".builds").replaceWith(buildList);
+    }
+    else {
+      this.el.append(buildList);
+    }
+
+    if ($(".empty_pane").length > 0) {
+      $(".empty_pane").replaceWith(this.el);
+    }
 
     return this;
   },

@@ -62,18 +62,18 @@ html(lang="en")
         ul
       a(href="#/repositories/new", class="add_new_repo_button btn small primary") Add repository
         
-      div(class="pane") 
+      div(class="pane empty_pane") 
         div(class="select_repository") Please select a repository on the left
 
     script(type="text/template", id="repository_show_template")
-      div(class="pane_header clearfix") 
+      div(class="pane_header repo_header clearfix") 
         div(class="repository_name") 
           div(class="title") <%= name %>
           div(class="wrench_icon")
         div(class="build_result")
 
     script(type="text/template", id="build_list_template")
-      div(class="builds")
+      div(class="clr")
         div(class='latest_build')
           div(class='sub_header') Latest build
 
