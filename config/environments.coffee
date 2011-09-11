@@ -8,4 +8,6 @@ app.configure 'test', 'development', ->
 
 app.configure 'production', ->
   app.use express.errorHandler
+
+app.configure 'development', 'production', ->
   sockets = require '../lib/sockets'

@@ -12,7 +12,7 @@ exports.BuildSchema = new Schema
   running:
     type: Boolean
     default: false
-  receivedAt: { type: Date, default: Date.now },
+  receivedAt:
     type: Date
     default: Date.now
   startedAt:

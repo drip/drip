@@ -19,7 +19,7 @@ exports.create = (request, response) ->
   if repository.url.indexOf('http') == 0
     repository.url = repository.url.replace(/\.git$/,"")
 
-  findOrCreateRepository repository, (err, repository) ->
+  findOrCreateRepository repository, (repository) ->
     triggerRepositoryBuild repository, branch, ->
       response.send "OK"
 

@@ -13,32 +13,38 @@ exports.findOrCreateRepository = (desired_repository, callback) ->
 
     if !repository
       repository = new Repository desired_repository
-    else
-      repository.url = desired_repository.url
+
+    repository.url = desired_repository.url
 
     repository.save (err) ->
       if err
         throw err
 
-      console.log 'Found/created repository for ' + repository.url
-
-      callback err, repository
+    # Callback needs to be outside of the save block, as we always want
+    # to return the repository we've found in the callback,
+    # regardless.
+    console.log 'Found/created repository for ' + repository.url
+    callback(repository)
 
 exports.triggerRepositoryBuild = (repository, branch, callback) ->
+  console.log "Trigger repository build called for repository: #{repository.id} branch: #{branch}"
+
   build = new Build
     branch: branch
 
-  repository.builds.push build
+  repository.builds.push(build)
+
+  console.log "Build created #{build.id}"
 
   repository.save (err) ->
     if err
       throw err
-
-    console.log 'Scheduling build for ' + repository.url + '/' + branch
+    
+    console.log "Scheduling build #{build.id} for #{repository.url}/#{branch}"
 
     Resque.enqueue 'builder', 'build', [
-      buildId: build.id,
+      buildId:      build.id,
       repositoryId: repository.id
     ]
 
-    callback()
+    callback(build)

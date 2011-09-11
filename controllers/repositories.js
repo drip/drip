@@ -18,7 +18,7 @@
     if (repository.url.indexOf('http') === 0) {
       repository.url = repository.url.replace(/\.git$/, "");
     }
-    return findOrCreateRepository(repository, function(err, repository) {
+    return findOrCreateRepository(repository, function(repository) {
       return triggerRepositoryBuild(repository, branch, function() {
         return response.send("OK");
       });

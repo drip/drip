@@ -9,8 +9,10 @@
     }));
   });
   app.configure('production', function() {
+    return app.use(express.errorHandler);
+  });
+  app.configure('development', 'production', function() {
     var sockets;
-    app.use(express.errorHandler);
     return sockets = require('../lib/sockets');
   });
 }).call(this);

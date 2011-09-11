@@ -145,7 +145,7 @@ Jobs =
 worker        = Resque.worker('builder', Jobs)
 workerCleanup = require('../lib/worker').workerCleanup
 
-worker.on 'poll', (worker, queue) -> 
+worker.on 'poll', (worker, queue) ->
   console.log "Polling for queue: #{queue}"
 
 worker.on 'job', (worker, queue, job) ->

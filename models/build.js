@@ -19,11 +19,7 @@
     receivedAt: {
       type: Date,
       "default": Date.now
-    }
-  }, {
-    type: Date,
-    "default": Date.now
-  }, {
+    },
     startedAt: {
       type: Date
     },
