@@ -32,6 +32,6 @@
     "nodemon": "~0.5.5"
   },
   "scripts":{ 
-    "test": "vows spec/* --spec"
+    "test": "vows spec/**/*.js --spec"
   }
 }
