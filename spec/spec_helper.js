@@ -1,8 +1,9 @@
 (function() {
-  var app;
+  var Repository, app;
   exports.app = app = require('../config/app').app;
   exports.vows = require('vows');
   exports.assert = require('assert');
+  exports.should = require('should');
   exports.zombie = require('zombie');
   exports.zombie.browser = new exports.zombie.Browser({
     debug: false,
@@ -19,5 +20,13 @@
   exports.headers = {};
   exports.headers.jsonHeaders = {
     'Content-Type': 'application/json'
+  };
+  Repository = require('../models/repository').Repository;
+  exports.factories = {};
+  exports.factories.Repository = {};
+  exports.factories.Repository.create = function(attributes, callback) {
+    var repositories;
+    repositories = new Repository(attributes);
+    repositories.save(callback);
   };
 }).call(this);
