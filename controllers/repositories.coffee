@@ -1,3 +1,4 @@
+Redis       = require('../config/redis').Connection
 Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
 
@@ -62,7 +63,7 @@ exports.destroy = (request, response) ->
 
     if repository && repository.builds
       repository.builds.forEach (build) ->
-        redis.del("builds:" + build.id)
+        Redis.del("builds:" + build.id)
 
     repository.remove()
     response.end()

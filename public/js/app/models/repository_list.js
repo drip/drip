@@ -21,10 +21,7 @@ D.RepositoryList = Backbone.Collection.extend({
       }
 
     });
-  },
 
-  addOrUpdateRepository: function () {
   }
-
 
 });

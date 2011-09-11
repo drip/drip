@@ -24,7 +24,7 @@ D.AppRouter = Backbone.Router.extend({
       selected: repo
     });
 
-    repositoryList.fetch();
+    return repositoryList;
   },
 
   root: function () {
@@ -39,29 +39,37 @@ D.AppRouter = Backbone.Router.extend({
   },
 
   repositoriesList: function (ownerName) {
-    this.beforeFilter(ownerName);
+    var repositoryList = this.beforeFilter(ownerName);
+    repositoryList.fetch();
   },
 
   repositoriesShow: function (ownerName, name) {
-    this.beforeFilter(ownerName, name);
+    var repositoryList = this.beforeFilter(ownerName, name);
 
-    var repository      = new D.Repository({ownerName: ownerName, name: name}),
-        repositoryView  = new D.RepositoryView({model: repository});
-        
-    repository.fetch();
+    repositoryList.bind("reset", function () {
+
+      var repository = repositoryList.find(function (r) {
+        return r.get("ownerName") === ownerName && r.get("name") === name;
+      });
+      new D.RepositoryView({model: repository}).render();
+    });
+    
+    repositoryList.fetch();
   },
   
   buildShow: function (ownerName, name, id) {
-    this.beforeFilter(ownerName, name);
+    var repositoryList  = this.beforeFilter(ownerName, name),
+        build           = new D.Build({_id: id, repository: {ownerName: ownerName, name: name} }),
+        buildView       = new D.BuildView({model: build});
 
-    var repository      = new D.Repository({ownerName: ownerName, name: name}),
-        repositoryView  = new D.RepositoryView({model: repository, selectedBuild: id});
-        
-    repository.fetch();
-
-    var build      = new D.Build({_id: id, repository: {ownerName: ownerName, name: name} }),
-        buildView  = new D.BuildView({model: build});
-        
+    repositoryList.bind("reset", function () {
+      var repository = repositoryList.find(function (r) {
+        return r.get("ownerName") === ownerName && r.get("name") === name;
+      });
+      new D.RepositoryView({model: repository, selectedBuild: id}).render();
+    });
+    
+    repositoryList.fetch();
     build.fetch();
   }
 });

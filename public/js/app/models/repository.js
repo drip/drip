@@ -4,8 +4,11 @@ D.Repository = Backbone.Model.extend({
   urlRoot: '/repositories',
 
   initialize: function (attrs) {
-    if (attrs.name) { this.id = attrs.name; }
+    if (attrs.name)   this.id = attrs.name;
+    if (attrs.builds) this.setupBuildList();
     this.bind("change", this.setupBuildList, this);
+    this.bind("destroy", function () {
+    }, this);
   },
 
   setupBuildList: function () {
