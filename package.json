@@ -2,7 +2,7 @@
   "author": "drip <drip@drip.io>",
   "name": "drip",
   "description": "npm continuous integration",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "repository": {
     "url": "https://github.com/drip/drip.git"
   },
@@ -15,7 +15,7 @@
     "mongoose": "~2.0.2",
     "redis-url": "~0.0.1",
     "redis": "~0.6.7",
-    "coffee-resque": "~0.1.4", 
+    "coffee-resque": "~0.1.4",
     "resque": "~0.0.3",
     "socket.io": "~0.7.10",
     "date-utils": "~1.2.3",
@@ -31,7 +31,9 @@
     "should": "~0.3.1",
     "nodemon": "~0.5.5"
   },
-  "scripts":{ 
-    "test": "vows spec/* --spec"
-  }
+  "scripts": {
+    "test": "vows spec/* --spec",
+    "start": "script/server.js"
+  },
+  "subdomain": "drip"
 }
