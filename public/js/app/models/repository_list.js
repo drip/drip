@@ -1,5 +1,5 @@
-var RepositoryList = Backbone.Collection.extend({
-  model: Repository,
+D.RepositoryList = Backbone.Collection.extend({
+  model: D.Repository,
 
   url: '/repositories',
 
@@ -17,7 +17,7 @@ var RepositoryList = Backbone.Collection.extend({
         repository.set(repository);
       }
       else {
-        list.add(new Repository(repo));
+        list.add(new D.Repository(repo));
       }
 
     });

@@ -1,4 +1,4 @@
-var AppRouter = Backbone.Router.extend({
+D.AppRouter = Backbone.Router.extend({
 
   routes: {
     "": "root",
@@ -11,14 +11,14 @@ var AppRouter = Backbone.Router.extend({
 
   beforeFilter: function (ownerName, name) {
     $("#main_logo").show();
-    var appView = new AppView().render();
-    var repositoryList = new RepositoryList();
+    var appView = new D.AppView().render();
+    var repositoryList = new D.RepositoryList();
     var repo = {};
 
     if (ownerName) { repo.ownerName = ownerName; }
     if (name) { repo.name = name; }
 
-    var repositoryListView = new RepositoryListView({
+    var repositoryListView = new D.RepositoryListView({
       el: $(".repositories"),
       collection: repositoryList,
       selected: repo
@@ -32,8 +32,8 @@ var AppRouter = Backbone.Router.extend({
   },
 
   repositoriesAdd: function () {
-    var addRepositoryView = new AddRepositoryView({
-      model: new Repository()
+    var addRepositoryView = new D.AddRepositoryView({
+      model: new D.Repository()
     });
     $("#main_content").html(addRepositoryView.render().el);
   },
@@ -51,7 +51,7 @@ var AppRouter = Backbone.Router.extend({
       var repository = repositoryList.find(function (r) {
         return r.get("ownerName") === ownerName && r.get("name") === name;
       });
-      new RepositoryView({model: repository}).render();
+      new D.RepositoryView({model: repository}).render();
     });
     
     repositoryList.fetch();
@@ -59,8 +59,8 @@ var AppRouter = Backbone.Router.extend({
   
   buildShow: function (ownerName, name, id) {
     var repositoryList  = this.beforeFilter(ownerName, name),
-        build           = new Build({_id: id, repository: {ownerName: ownerName, name: name} }),
-        buildView       = new BuildView({model: build});
+        build           = new D.Build({_id: id, repository: {ownerName: ownerName, name: name} }),
+        buildView       = new D.BuildView({model: build});
 
     repositoryList.bind("reset", function () {
       var repository = repositoryList.find(function (r) {

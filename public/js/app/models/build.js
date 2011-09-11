@@ -1,4 +1,4 @@
-var Build = Backbone.Model.extend({
+D.Build = Backbone.Model.extend({
   urlRoot: '/repositories',
 
   initialize: function (attrs) {
@@ -24,7 +24,7 @@ var Build = Backbone.Model.extend({
           //build.trigger("change");
         }});
       }
-    }, 3000);
+    }, 300);
   },
 
   setLabel: function () {

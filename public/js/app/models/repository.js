@@ -1,4 +1,4 @@
-var Repository = Backbone.Model.extend({
+D.Repository = Backbone.Model.extend({
   defaults: { buildList: null },
 
   urlRoot: '/repositories',
@@ -17,7 +17,7 @@ var Repository = Backbone.Model.extend({
         bl;
 
     if (!this.get("buildList") && builds && builds.length > 0) { 
-      bl = new BuildList();
+      bl = new D.BuildList();
 
       // enrich builds with repository meta data
       _.each(builds, function (b) {
@@ -25,7 +25,7 @@ var Repository = Backbone.Model.extend({
           name:       repo.get("name"),
           ownerName:  repo.get("ownerName")
         };
-        bl.add(new Build(b))
+        bl.add(new D.Build(b))
       });
 
       this.set({buildList: bl}, {silent:true});
@@ -33,7 +33,7 @@ var Repository = Backbone.Model.extend({
   },
 
   validate: function (attrs) {
-    if (!attrs.url) {
+    if (!attrs || !attrs.url) {
       return "Please enter a github repository url";
     }
   },

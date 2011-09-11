@@ -1,4 +1,5 @@
-var RepositoryView = Backbone.View.extend({
+D.RepositoryView = Backbone.View.extend({
+
   tagName: 'div',
   className: 'pane main_pane',
 
@@ -23,13 +24,13 @@ var RepositoryView = Backbone.View.extend({
     this.el.html(frag);
 
     if (this.model.get('buildList')) { 
-      this.el.append(new BuildListView({
+      this.el.append(new D.BuildListView({
         collection: this.model.get("buildList"),
         selectedBuild: this.selectedBuild
       }).render().el);
     }
     else {
-      this.el.append("This repository has no builds yet ☹");
+      this.el.append("<div class='no_builds'>This repository has no builds yet ☹</div>");
     }
 
     $(".pane").replaceWith(this.el);
@@ -39,7 +40,7 @@ var RepositoryView = Backbone.View.extend({
   
   showSettings: function () {
     var deleteButton  = $("<a class='btn danger'>Delete repository</a>'"),
-        popoverNav    = new PopoverNav({items: [deleteButton]}), 
+        popoverNav    = new D.PopoverNav({items: [deleteButton]}), 
         popoverEl     = $(popoverNav.render().el),
         that          = this,
         left;
@@ -73,7 +74,7 @@ var RepositoryView = Backbone.View.extend({
     pane.html('<div class="select_repository">Please select a repository on the left</div>');
     $(".main_pane").replaceWith(pane);
 
-    appRouter.navigate("/repositories");
+    D.appRouter.navigate("/repositories");
   }
 
 });

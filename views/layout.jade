@@ -11,7 +11,9 @@ html(lang="en")
     script(src="js/vendor/json2.js")
     script(src="js/vendor/jquery-1.6.2.min.js")
     script(src="js/vendor/backbone-min.js")
-    
+    script
+      // set global app object.
+      window.D = {};
     script(src="js/app/routers/app_router.js")
     script(src="js/app/models/build.js")
     script(src="js/app/models/build_list.js")
@@ -32,7 +34,7 @@ html(lang="en")
     script(type="text/template", id="add_repository_tmpl")
       header
         div(class="main_logo")
-        nav(class="front_nav")
+        nav(class="main_nav")
           ul(class="unstyled clearfix")
             li(class="current") 
               a(href="/") Add repository
@@ -43,7 +45,7 @@ html(lang="en")
       h2 Continuous integration for npm.
       form(method='post', action='/repositories', id='add_repo_form')
         input(type="text", class="xlarge repository_url_input",
-        value="http://github.com/indexzero/winston"), placeholder="http://github.com/indexzero/winston")
+        value="http://github.com/indexzero/winston", placeholder="http://github.com/indexzero/winston")
         input(type="submit",class="btn primary large add",value="See It In Action!")
         div(class="error_message")
 
@@ -54,7 +56,6 @@ html(lang="en")
           li Setup a post-receive hook in GitHub to http://drip.io
         p(class="note")
           em Note: We no longer support make test; this has been replaced in favor of npm test.
-
 
     script(type="text/template", id="repository_list_template")
       aside(class="repository_list")
@@ -93,7 +94,7 @@ html(lang="en")
     != body
 
   script
-    var appRouter = new AppRouter();
+    D.appRouter = new D.AppRouter();
     if (!Backbone.history.start()) {
       console.log("no routes matched");
     };

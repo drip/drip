@@ -1,4 +1,4 @@
-var RepositoryListView = Backbone.View.extend({
+D.RepositoryListView = Backbone.View.extend({
 
   initialize: function (options) {
     _.bindAll(this);
@@ -17,7 +17,7 @@ var RepositoryListView = Backbone.View.extend({
     _.each(groups, function (repositories, ownerName) {
       innerNode.append("<li class='clearfix owner_name' id='owner_" + ownerName + "'><span class='user_icon'></span>" + ownerName + "</li>");
       _.each(repositories, function (repository) {
-        var listItem = new RepositoryListItemView({ model: repository });
+        var listItem = new D.RepositoryListItemView({ model: repository });
         innerNode.append(listItem.render().el);
         if (list.selected) {
           if (repository.get("ownerName") === list.selected.ownerName && repository.get("name") === list.selected.name) {
@@ -31,14 +31,14 @@ var RepositoryListView = Backbone.View.extend({
   },
 
   add: function (repository) {
-    $(this.el).find(".repository_list ul").append(new RepositoryListItemView({
+    $(this.el).find(".repository_list ul").append(new D.RepositoryListItemView({
       model: repository
     }).render().el);
   }
 
 });
 
-var RepositoryListItemView = Backbone.View.extend({
+D.RepositoryListItemView = Backbone.View.extend({
   tagName: 'li',
   className: 'repository_list_item clearfix',
 
@@ -61,10 +61,10 @@ var RepositoryListItemView = Backbone.View.extend({
   show: function () {
     var repo = this.model;
 
-    appRouter.navigate("/" + repo.get("ownerName") + "/" + repo.get("name"));
+    D.appRouter.navigate("/" + repo.get("ownerName") + "/" + repo.get("name"));
     this.select();
 
-    new RepositoryView({model: repo}).render();
+    new D.RepositoryView({model: repo}).render();
   },
 
   select: function () {

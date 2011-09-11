@@ -89,15 +89,15 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 /* --- add repository --- */
 .add_repository                                         { width: 750px; margin: 0px auto; position: relative; margin-top: -50px; }
 .add_repository .main_logo                              { background: url(/img/driplogo.png) no-repeat; width: 138px; height: 88px; }
-.add_repository .front_nav                              { position: absolute; top: 25px; left: 180px; }
-.add_repository .front_nav ul li                        { float: left; margin-right: 5px; }
-.add_repository .front_nav ul li a                      { color: #888; padding: 5px 14px; font-size: 14px;
+.add_repository .main_nav                              { position: absolute; top: 25px; left: 180px; }
+.add_repository .main_nav ul li                        { float: left; margin-right: 5px; }
+.add_repository .main_nav ul li a                      { color: #888; padding: 5px 14px; font-size: 14px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   .border-radius(12px);
   border-bottom: 1px solid transparent;
 }
-.add_repository .front_nav ul li a:hover                { text-decoration: none; color: #eee; }
-.add_repository .front_nav ul li.current a              { color: #eee;
+.add_repository .main_nav ul li a:hover                { text-decoration: none; color: #eee; }
+.add_repository .main_nav ul li.current a              { color: #eee;
   background: rgba(0, 0, 0, 0.2);
   .box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -183,6 +183,7 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .pane_header .build_result.running                      { background: url(/img/header_running.png); width: 104px; }
 .pane_header .build_result.unknown                      { background: url(/img/header_unknown.png); width: 104px; }
 
+<<<<<<< HEAD
 .pane_header .title                                     { float: left; }
 .pane_header .wrench_icon                               { background: url(/img/wrench_icon.png); width: 16px; height: 16px; float: left; margin-left: 10px; margin-top: 3px; cursor: pointer;
   opacity: 0.3;
@@ -190,6 +191,9 @@ input[type="text"].error, input[type="password"].error, textarea.error { border-
 .pane_header .wrench_icon:hover                         {
   opacity: 1;
 }
+=======
+.pane .no_builds                                        { text-align: center; padding: 40px; }
+>>>>>>> master
 
 /* --- build list view --- */
 .build_list                                             { list-style: none; margin: 0; }
