@@ -50,3 +50,19 @@ exports.show = (request, response) ->
       throw err
 
     response.send repository
+
+exports.destroy = (request, response) ->
+  query =
+    name:      request.params.name
+    ownerName: request.params.ownerName
+
+  Repository.findOne query, (err, repository) ->
+    if err
+      throw err
+
+    if repository && repository.builds
+      repository.builds.forEach (build) ->
+        redis.del("builds:" + build.id)
+
+    repository.remove()
+    response.end()

@@ -19,6 +19,8 @@ vows
 
       'when creating a new repository': 'pending'
 
+      'when deleting repository': 'pending'
+
       'when requesting the repository list':
         topic: (repository) ->
           tobi.get('/repositories', @callback)

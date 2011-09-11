@@ -12,6 +12,7 @@ app.get   '/repositories',                  Repositories.list
 app.post  '/repositories',                  Repositories.create
 app.get   '/repositories/:ownerName',       Repositories.list
 app.get   '/repositories/:ownerName/:name', Repositories.show
+app.del   '/repositories/:ownerName/:name', Repositories.destroy
 
 app.get   '/repositories/:ownerName/:name/builds',      Builds.list
 app.get   '/repositories/:ownerName/:name/builds/:id',  Builds.show
