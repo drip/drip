@@ -24,7 +24,7 @@ D.Build = Backbone.Model.extend({
           //build.trigger("change");
         }});
       }
-    }, 3000);
+    }, 300);
   },
 
   setLabel: function () {
