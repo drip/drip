@@ -48,52 +48,63 @@ Jobs =
         workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_')
         console.log "making directory ["+workingDir+"]..."
         cmds[name] = Spawn('mkdir',['-vp',workingDir])
-        cmdOut.bind(name, spawnClone)
+        cmdOut.bind({name: name, next: spawnClone})
 
       spawnClone = ->
         name = 'clone'
         console.log "cloning ["+repository.url+"]..."
         cmds[name] = Spawn('git', ['clone', repository.url, workingDir], { cwd: workingDir, setsid: false })
-        cmdOut.bind(name, spawnCheckout)
+        cmdOut.bind({name: name, next: spawnCheckout})
       
       spawnCheckout = ->
         name = 'checkout'
         console.log "checkout ["+build.branch+"]..."
         cmds[name] = Spawn('git', ['checkout',build.branch], {cwd: workingDir, setsid: false})
-        cmdOut.bind(name, spawnNpmInstall)
+        cmdOut.bind({name: name, next: spawnNpmInstall})
 
       spawnNpmInstall = ->
         name = 'npm_install'
         console.log("running npm install...")
         cmds[name] = Spawn('npm',['install'], {cwd: workingDir})
-        cmdOut.bind(name, spawnNpmTest)
+        cmdOut.bind({name: name, next: spawnNpmTest})
 
       spawnNpmTest = ->
         name = 'npm_test'
         console.log("running npm test...")
         cmds[name] = Spawn('npm',['test'], {cwd: workingDir})
-        cmdOut.bind(name, buildFinish)
+        cmdOut.bind({name: name, next: buildFinish})
 
       buildFinish = ->
-        name = 'finish'
         build.finishedAt = Date.now()
-        console.log("finishing build and cleaning-up ["+build.finishedAt+"]...")
+        console.log("finishing build ["+build.finishedAt+"]...")
+        cleanUp()
         build.completed  = true
         build.running    = false
         build.successful = stepsSuccessful
         repository.save (err) ->
           if err
             throw err
-        
-        cmds[name] = Spawn('rm',['-vrf', workingDir])
-        cmdOut.bind(name)
+      
+      cleanUp = ->
+        name = 'cleanup'
+        console.log "cleaning-up: ["+workingDir+"]"
+        cmds[name] = Spawn('rm',['-rf', workingDir])
+        cmdOut.bind({name: name, skipExitBinding: true})
 
       cmdOut =
-        bind: (name, next) ->
+        bind: (opts) ->
+          if !opts || !opts.name
+            throw "bind needs minimally a name param"
+            
+          name = opts.name
+          next = opts.next
+
           spawn = cmds[name]
           this.stdout(spawn,name)
           this.stderr(spawn,name)
-          this.exit(spawn,name,next)
+          
+          if !opts.skipExitBinding
+            this.exit(spawn,name,next)
 
         stdout: (spawn, name) ->
           spawn.stdout.on 'data', (data) ->
@@ -112,17 +123,23 @@ Jobs =
         exit: (spawn, name, next) ->
           spawn.on 'exit', (code) ->
             console.log 'exit '+name+' ['+workingDir+'] code: ' + code
+            
+            hasNext = (typeof(next) == "function")
            
             buildRepository.save (err) ->
               if err
                 throw err
             
+            if code != 0 || !hasNext
+              cleanUp()
+            
             if code == 0
               console.log 'clean exit; calling next() if present'
               stepsSuccessful = true
               
-              if typeof(next) == 'function'
+              if hasNext
                 next()
+                
             else
               console.log 'unclean exit; not progressing to next, typeof: '+typeof(next)
               stepsSuccessful = false
