@@ -27,7 +27,7 @@
       return Repository.findOne({
         '_id': new ObjectId(repositoryId)
       }, function(err, repository) {
-        var buildFinish, buildRepository, buildStart, cmdOut, spawnCheckout, spawnClone, spawnCloneDir, spawnNpmInstall, spawnNpmTest;
+        var buildFinish, buildRepository, buildStart, cleanUp, cmdOut, spawnCheckout, spawnClone, spawnCloneDir, spawnNpmInstall, spawnNpmTest;
         if (err) {
           throw err;
         }
@@ -50,7 +50,10 @@
           workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_');
           console.log("making directory [" + workingDir + "]...");
           cmds[name] = Spawn('mkdir', ['-vp', workingDir]);
-          return cmdOut.bind(name, spawnClone);
+          return cmdOut.bind({
+            name: name,
+            next: spawnClone
+          });
         };
         spawnClone = function() {
           var name;
@@ -60,7 +63,10 @@
             cwd: workingDir,
             setsid: false
           });
-          return cmdOut.bind(name, spawnCheckout);
+          return cmdOut.bind({
+            name: name,
+            next: spawnCheckout
+          });
         };
         spawnCheckout = function() {
           var name;
@@ -70,7 +76,10 @@
             cwd: workingDir,
             setsid: false
           });
-          return cmdOut.bind(name, spawnNpmInstall);
+          return cmdOut.bind({
+            name: name,
+            next: spawnNpmInstall
+          });
         };
         spawnNpmInstall = function() {
           var name;
@@ -79,7 +88,10 @@
           cmds[name] = Spawn('npm', ['install'], {
             cwd: workingDir
           });
-          return cmdOut.bind(name, spawnNpmTest);
+          return cmdOut.bind({
+            name: name,
+            next: spawnNpmTest
+          });
         };
         spawnNpmTest = function() {
           var name;
@@ -88,31 +100,48 @@
           cmds[name] = Spawn('npm', ['test'], {
             cwd: workingDir
           });
-          return cmdOut.bind(name, buildFinish);
+          return cmdOut.bind({
+            name: name,
+            next: buildFinish
+          });
         };
         buildFinish = function() {
-          var name;
-          name = 'finish';
           build.finishedAt = Date.now();
-          console.log("finishing build and cleaning-up [" + build.finishedAt + "]...");
+          console.log("finishing build [" + build.finishedAt + "]...");
+          cleanUp();
           build.completed = true;
           build.running = false;
           build.successful = stepsSuccessful;
-          repository.save(function(err) {
+          return repository.save(function(err) {
             if (err) {
               throw err;
             }
           });
-          cmds[name] = Spawn('rm', ['-vrf', workingDir]);
-          return cmdOut.bind(name);
+        };
+        cleanUp = function() {
+          var name;
+          name = 'cleanup';
+          console.log("cleaning-up: [" + workingDir + "]");
+          cmds[name] = Spawn('rm', ['-rf', workingDir]);
+          return cmdOut.bind({
+            name: name,
+            skipExitBinding: true
+          });
         };
         cmdOut = {
-          bind: function(name, next) {
-            var spawn;
+          bind: function(opts) {
+            var name, next, spawn;
+            if (!opts || !opts.name) {
+              throw "bind needs minimally a name param";
+            }
+            name = opts.name;
+            next = opts.next;
             spawn = cmds[name];
             this.stdout(spawn, name);
             this.stderr(spawn, name);
-            return this.exit(spawn, name, next);
+            if (!opts.skipExitBinding) {
+              return this.exit(spawn, name, next);
+            }
           },
           stdout: function(spawn, name) {
             return spawn.stdout.on('data', function(data) {
@@ -134,16 +163,21 @@
           },
           exit: function(spawn, name, next) {
             return spawn.on('exit', function(code) {
+              var hasNext;
               console.log('exit ' + name + ' [' + workingDir + '] code: ' + code);
+              hasNext = typeof next === "function";
               buildRepository.save(function(err) {
                 if (err) {
                   throw err;
                 }
               });
+              if (code !== 0 || !hasNext) {
+                cleanUp();
+              }
               if (code === 0) {
                 console.log('clean exit; calling next() if present');
                 stepsSuccessful = true;
-                if (typeof next === 'function') {
+                if (hasNext) {
                   return next();
                 }
               } else {
