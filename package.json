@@ -2,7 +2,7 @@
   "author": "drip <drip@drip.io>",
   "name": "drip",
   "description": "npm continuous integration",
-  "version": "0.0.1-7",
+  "version": "0.0.1-15",
   "repository": {
     "url": "https://github.com/drip/drip.git"
   },
@@ -35,5 +35,6 @@
     "test": "vows spec/**/*.js --spec",
     "start": "script/init.js"
   },
-  "subdomain": "drip"
+  "subdomain": "drip",
+  "domain": "drip.io"
 }
