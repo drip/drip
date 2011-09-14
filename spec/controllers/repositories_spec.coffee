@@ -24,13 +24,13 @@ vows
 
       'when requesting the repository list':
         topic: ->
-          tobi.get('/repositories', @callback)
+          tobi.get '/repositories', @callback
 
-        'should respond with a 200 ok': (response, $) ->
+        'should respond with a 200 ok': (response, $, repo) ->
           response.should.have.status(200)
 
         'should return a list of repositories': (response, $) ->
-          response.body.should.be.an.instanceof(Array)
+          $.should.be.an.instanceof(Array)
 
         'should contain the repository we just created': 'pending'
 
@@ -45,7 +45,7 @@ vows
 
       'when requesting the repository list by name':
         topic: ->
-          tobi.get('/repositories/testrepo', @callback)
+          tobi.get '/repositories/testrepo', @callback
 
         'should respond with a 200 ok': (response, $) ->
           response.should.have.status(200)
@@ -66,7 +66,7 @@ vows
 
       'when requesting one repository':
         topic: ->
-          tobi.get('/repositories/testuser/testrepo', @callback)
+          tobi.get '/repositories/testuser/testrepo', @callback
 
         'should respond with a 200 ok': (response, $) ->
           response.should.have.status(200)
@@ -85,13 +85,6 @@ vows
           ownerName: "testuser"
         RepositoryFactory.create attributes, @callback
     
-      'when deleting repository':
-        topic: ->
-          tobi.get('/repositories/testuser/deleterepo', @callback)
-
-        'should respond with a 200 ok': (response, $) ->
-          response.should.have.status(200)
-
-        'should contain the repository we just created': 'pending'
+      'when deleting repository': 'pending'
 
 	.export(module)

@@ -24,11 +24,11 @@
         topic: function() {
           return tobi.get('/repositories', this.callback);
         },
-        'should respond with a 200 ok': function(response, $) {
+        'should respond with a 200 ok': function(response, $, repo) {
           return response.should.have.status(200);
         },
         'should return a list of repositories': function(response, $) {
-          return response.body.should.be.an["instanceof"](Array);
+          return $.should.be.an["instanceof"](Array);
         },
         'should contain the repository we just created': 'pending'
       }
@@ -89,15 +89,7 @@
         };
         return RepositoryFactory.create(attributes, this.callback);
       },
-      'when deleting repository': {
-        topic: function() {
-          return tobi.get('/repositories/testuser/deleterepo', this.callback);
-        },
-        'should respond with a 200 ok': function(response, $) {
-          return response.should.have.status(200);
-        },
-        'should contain the repository we just created': 'pending'
-      }
+      'when deleting repository': 'pending'
     }
   })["export"](module);
 }).call(this);
