@@ -22,6 +22,8 @@ exports.BuildSchema = new Schema
   branch:
     type: String
     default: "master"
+  sha:
+  	type: String
   output:
     type: String
 

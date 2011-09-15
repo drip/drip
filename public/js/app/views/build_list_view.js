@@ -56,7 +56,7 @@ D.BuildListItemView = Backbone.View.extend({
     var el = this.el = $(this.el);
     el.prop("className", "build_list_item");
     el.addClass(this.model.status());
-    el.html("<span class='build_icon'></span>" + this.model.get("label"));
+    el.html("<span class='build_icon'></span>" + this.model.get("sha"));
     return this;
   },
 

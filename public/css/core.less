@@ -15,6 +15,9 @@
 @failred: rgba(255, 0, 0, 0.75);
 @successgreen: rgba(16, 191, 9, 0.95);
 
+@header_link: #fff;
+@header_note: #ddd;
+
 /* =BROWSER
 ================================================== */
 html, body                                              { background: @canvas url(/img/noisebg.png);  }
@@ -36,7 +39,7 @@ html, body                                              { background: @canvas ur
 .scroll_view::-webkit-resizer                           { background: transparent; }
 .scroll_view::-webkit-scrollbar-thumb                   { border-radius: 10px; background: #aaa; }
 
-.pane_header                                            { padding: 10px 20px 15px 20px; color: @white; font-size: 20px; line-height: 20px;
+.pane_header                                            { height: 19px; padding: 10px 20px 15px 20px; color: @white; font-size: 20px; line-height: 20px; overflow: hidden;
   background: url(/img/pane_header.png) repeat-x;
   text-shadow: 0px 1px 2px fadeout(@black, 60);
   -webkit-border-radius: 5px 5px 0 0;
@@ -44,7 +47,13 @@ html, body                                              { background: @canvas ur
           border-radius: 5px 5px 0 0;
 }
 
-.pane.build_details                                     { left: 280px; }
+.pane_header_link                                       { color: @header_link; }
+.pane_header_prefix                                     { color: @header_note; }
+.pane_header_suffix                                     { color: @header_note; opacity: 0; -webkit-transition: opacity .3s; -moz-transition: opacity .3s; transition: opacity .3s; }
+.pane_header_link:hover                                 { color: @header_link; text-decoration:none; }
+.pane_header_link:hover .pane_header_suffix             { opacity: 1; }
+
+.pane.build_details                                     { left: 410px; } /* 280px was ideal, but it couldn't hold a SHA... */
 
 .sub_header                                             { padding: 9px 20px 11px 20px; color: @white;
   .gradientBar(@grayLight, @gray);
