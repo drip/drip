@@ -17,13 +17,8 @@ D.RepositoryListView = Backbone.View.extend({
     _.each(groups, function (repositories, ownerName) {
       innerNode.append("<li class='clearfix owner_name' id='owner_" + ownerName + "'><span class='user_icon'></span>" + ownerName + "</li>");
       _.each(repositories, function (repository) {
-        var listItem = new D.RepositoryListItemView({ model: repository });
+        var listItem = new D.RepositoryListItemView({ model: repository, listView: list });
         innerNode.append(listItem.render().el);
-        if (list.selected) {
-          if (repository.get("ownerName") === list.selected.ownerName && repository.get("name") === list.selected.name) {
-            listItem.select();
-          }
-        }
       });
     });
 
@@ -46,15 +41,24 @@ D.RepositoryListItemView = Backbone.View.extend({
     "click": "show"
   },
 
-  initialize: function () {
+  initialize: function (options) {
     _.bindAll(this);
+    this.listView = options.listView;
     this.model.bind("reset", this.render);
+    this.model.get("buildList").bind("change", this.render);
     this.model.bind("destroy", this.remove);
   },
 
   render: function () {
     $(this.el).html(this.model.get("name") + "<span class='build_result'></span>");
+
+    $(this.el).attr("class", "repository_list_item clearfix");
     $(this.el).addClass(this.model.status());
+
+    if (this.listView && this.listView.selected && this.model.equals(this.listView.selected)) {
+      this.select();
+    }
+
     return this;
   },
 

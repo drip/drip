@@ -18,20 +18,12 @@ D.BuildListView = Backbone.View.extend({
     latestBuildNode.append(latestListNode);
 
     _.each(this.collection.toArray(), function (build, i) {
-      var listItem = new D.BuildListItemView({model: build});
+      var listItem = new D.BuildListItemView({model: build, listView: list});
       if (i === 0) {
         latestListNode.append(listItem.render().el);
-        if (build.get("_id") === list.selectedBuild) {
-          listItem.select();
-        }
         return;
       }
-      
       listNode.append(listItem.render().el);
-      if (build.get("_id") === list.selectedBuild) {
-        listItem.select();
-      }
-
     });
 
     el.html(frag);
@@ -47,8 +39,9 @@ D.BuildListItemView = Backbone.View.extend({
 
   events: {"click": "show"},
 
-  initialize: function () {
+  initialize: function (options) {
     _.bindAll(this);
+    this.listView = options.listView;
     this.model.bind("change:completed", this.render);
   },
 
@@ -57,6 +50,9 @@ D.BuildListItemView = Backbone.View.extend({
     el.prop("className", "build_list_item");
     el.addClass(this.model.status());
     el.html("<span class='build_icon'></span>" + this.model.get("label"));
+    if (this.model.get("_id") === this.listView.selectedBuild) {
+      this.select();
+    }
     return this;
   },
 

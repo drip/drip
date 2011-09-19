@@ -19,9 +19,7 @@ D.Build = Backbone.Model.extend({
         clearInterval(interval);
       }
       else {
-        build.fetch({success: function () {
-          //build.trigger("change");
-        }});
+        build.fetch();
       }
     }, 1000);
   },

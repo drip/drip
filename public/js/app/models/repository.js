@@ -4,11 +4,9 @@ D.Repository = Backbone.Model.extend({
   urlRoot: '/repositories',
 
   initialize: function (attrs) {
-    if (attrs.name)   this.id = attrs.name;
-    if (attrs.builds) this.setupBuildList();
+    if (attrs.name)     this.id = attrs.name;
+    if (attrs.builds)   this.setupBuildList();
     this.bind("change", this.setupBuildList, this);
-    this.bind("destroy", function () {
-    }, this);
   },
 
   setupBuildList: function () {
@@ -32,12 +30,17 @@ D.Repository = Backbone.Model.extend({
     }
   },
 
+  // TODO: fix this!!
   validate: function (attrs) {
     /*
     if (!attrs || !attrs.url) {
       return "Please enter a github repository url";
     }
     */
+  },
+
+  equals: function (repo) {
+    return this.get("ownerName") === repo.ownerName && this.get("name") === repo.name;
   },
   
   url: function () {
@@ -60,7 +63,7 @@ D.Repository = Backbone.Model.extend({
   },
   
   // Override toJSON so we can wrap the attrs in {"repository": ... }
-  toJSON : function() {
+  toJSON: function() {
     return _.clone({"repository" : this.attributes})
   },
   

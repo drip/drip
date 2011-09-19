@@ -5,7 +5,7 @@ D.BuildView = Backbone.View.extend({
 
   initialize: function () {
     _.bindAll(this);
-    this.model.bind("change:output", this.render);
+    this.model.bind("change", this.render);
   },
 
   render: function () {
