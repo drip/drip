@@ -7,7 +7,7 @@ D.RepositoryList = Backbone.Collection.extend({
     var list = this;
     
     window.socket.on('repository', function (data) {
-      console.log('socket.io received data:' + data);
+      // console.log('socket.io received data:' + data);
 
       var repo = data.repository,
           repository = list.find(function (r) {

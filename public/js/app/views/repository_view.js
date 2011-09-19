@@ -9,7 +9,8 @@ D.RepositoryView = Backbone.View.extend({
 
   initialize: function (options) {
     _.bindAll(this);
-    this.model.bind("change", this.render);
+    //this.model.bind("change", this.render);
+    this.model.get("buildList").bind("change", this.render);
     this.model.bind("destroy", this.remove);
     this.selectedBuild = options.selectedBuild;
   },
@@ -51,7 +52,7 @@ D.RepositoryView = Backbone.View.extend({
     if ($(".empty_pane").length > 0) {
       $(".empty_pane").replaceWith(this.el);
     }
-    else if ($(".main_pane").length > 0 && $(".main_pane").data("repository_cid") !== this.el.cid) {
+    else if ($(".main_pane").length > 0 && $(".main_pane").data("repository_cid") !== this.model.cid) {
       $(".main_pane").replaceWith(this.el);
     }
 
