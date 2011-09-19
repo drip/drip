@@ -30,6 +30,9 @@
       type: String,
       "default": "master"
     },
+    sha: {
+      type: String
+    },
     output: {
       type: String
     }

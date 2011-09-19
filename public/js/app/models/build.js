@@ -28,7 +28,7 @@ D.Build = Backbone.Model.extend({
 
   setLabel: function () {
     // var label = new Date(this.get("receivedAt")).getTime();
-    var label = this.get("_id");
+    var label = this.get("sha");
     this.set({"label": label}, {silent: true});
   },
   

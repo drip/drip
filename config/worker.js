@@ -1,7 +1,8 @@
 (function() {
-  var Build, Jobs, ObjectId, Redis, Repository, Resque, Spawn, mongoose, sys, worker, workerCleanup;
+  var Build, Git, Jobs, ObjectId, Redis, Repository, Resque, Spawn, mongoose, sys, worker, workerCleanup;
   sys = require('sys');
   Spawn = require('child_process').spawn;
+  Git = require('git-fs');
   Repository = require('../models/repository').Repository;
   Build = require('../models/build').Build;
   Resque = require('../config/resque').Connection;
@@ -27,11 +28,12 @@
       return Repository.findOne({
         '_id': new ObjectId(repositoryId)
       }, function(err, repository) {
-        var buildFinish, buildRepository, buildStart, cleanUp, cmdOut, spawnCheckout, spawnClone, spawnCloneDir, spawnNpmInstall, spawnNpmTest;
+        var buildFinish, buildRepository, buildStart, cleanUp, cmdOut, saveShaRef, spawnCheckout, spawnClone, spawnCloneDir, spawnNpmInstall, spawnNpmTest;
         if (err) {
           throw err;
         }
         console.log('Repository found, id:[' + repository._id + '] url:[' + repository.url + '], num builds:[' + repository.builds.length + ']');
+        workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_');
         buildRepository = repository;
         build = repository.builds.id(buildId);
         buildStart = function() {
@@ -47,7 +49,6 @@
         spawnCloneDir = function() {
           var name;
           name = 'mkdir';
-          workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_');
           console.log("making directory [" + workingDir + "]...");
           cmds[name] = Spawn('mkdir', ['-vp', workingDir]);
           return cmdOut.bind({
@@ -78,8 +79,21 @@
           });
           return cmdOut.bind({
             name: name,
-            next: spawnNpmInstall
+            next: saveShaRef
           });
+        };
+        saveShaRef = function() {
+          var foo, getHeadCallback, name;
+          name = 'git_sha';
+          foo = 'pickles';
+          console.log("grabbing SHA for HEAD of [" + build.branch + "]");
+          getHeadCallback = function(noop, sha) {
+            console.log("got SHA [" + sha + "]");
+            build.sha = sha;
+            return spawnNpmInstall();
+          };
+          Git(workingDir);
+          return Git.getHead(getHeadCallback, true);
         };
         spawnNpmInstall = function() {
           var name;

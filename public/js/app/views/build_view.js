@@ -10,14 +10,18 @@ D.BuildView = Backbone.View.extend({
 
   render: function () {
     this.el = $(this.el);
+    var sha = this.model.get("sha") || 'unknown_sha';
+    var githubUrl = ["http://github.com", this.model.get("repository").ownerName, this.model.get("repository").name, 'commit', sha ];
+    
     var tmpl = $(_.template($("#build_view_template").html(), {
-          label: this.model.get("label"),
+          label: sha,
           output: this.parseOutput(),
-          branch: this.model.get("branch")
+          branch: this.model.get("branch") // TODO
         })),
         outputNode;
 
     tmpl.find(".build_result").addClass(this.model.status());
+    tmpl.find('.pane_header_link').attr('href', githubUrl.join('/'));
 
     this.el.html(tmpl);
 

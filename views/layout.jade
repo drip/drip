@@ -83,8 +83,11 @@ html(lang="en")
             ul(class='build_list')
 
     script(type="text/template", id="build_view_template")
-      div(class="pane_header") 
-        <%= label %>
+      div(class="pane_header")
+        a(href="#", class="pane_header_link", target="_blank")
+          span(class="pane_header_prefix") SHA: 
+          <%= label %>
+          span(class="pane_header_suffix") on github &raquo;
         div(class="build_result")
       div(class='sub_header') Build output for branch: <%= branch %>
       div(class="build_output scroll_view")

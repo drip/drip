@@ -1,5 +1,6 @@
 sys         = require('sys')
 Spawn       = require('child_process').spawn
+Git         = require('git-fs')
 Repository  = require('../models/repository').Repository
 Build       = require('../models/build').Build
 Resque      = require('../config/resque').Connection
@@ -30,6 +31,8 @@ Jobs =
 
       console.log 'Repository found, id:['+repository._id+'] url:['+repository.url+'], num builds:['+repository.builds.length+']'
       
+      workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_')
+
       buildRepository = repository
 
       build = repository.builds.id buildId
@@ -45,9 +48,8 @@ Jobs =
 
       spawnCloneDir = ->
         name = 'mkdir'
-        workingDir = ['/tmp/', 'dripio', repository.ownerName, repository.name, Date.now()].join('_')
         console.log "making directory ["+workingDir+"]..."
-        cmds[name] = Spawn('mkdir',['-vp',workingDir])
+        cmds[name] = Spawn('mkdir',['-vp',workingDir]) # Use 'fs' instead; http://nodejs.org/docs/v0.4.11/api/fs.html#fs.mkdir
         cmdOut.bind({name: name, next: spawnClone})
 
       spawnClone = ->
@@ -56,11 +58,30 @@ Jobs =
         cmds[name] = Spawn('git', ['clone', repository.url, workingDir], { cwd: workingDir, setsid: false })
         cmdOut.bind({name: name, next: spawnCheckout})
       
+      # TODO: Replace this with git-fs?
       spawnCheckout = ->
         name = 'checkout'
         console.log "checkout ["+build.branch+"]..."
         cmds[name] = Spawn('git', ['checkout',build.branch], {cwd: workingDir, setsid: false})
-        cmdOut.bind({name: name, next: spawnNpmInstall})
+        cmdOut.bind({name: name, next: saveShaRef})
+      
+      saveShaRef = ->
+        name = 'git_sha'
+        foo = 'pickles'
+        console.log "grabbing SHA for HEAD of ["+build.branch+"]"
+        
+        getHeadCallback = (noop,sha) ->
+          console.log "got SHA ["+sha+"]"
+          build.sha = sha
+          spawnNpmInstall()
+          
+        Git workingDir
+        Git.getHead(getHeadCallback, true);
+        
+        # repository.save (err) ->
+        #   if err
+        #     throw err
+        # 
 
       spawnNpmInstall = ->
         name = 'npm_install'
@@ -88,7 +109,7 @@ Jobs =
       cleanUp = ->
         name = 'cleanup'
         console.log "cleaning-up: ["+workingDir+"]"
-        cmds[name] = Spawn('rm',['-rf', workingDir])
+        cmds[name] = Spawn('rm',['-rf', workingDir]) # Use 'fs' instead; loop and unlink, then remdir - http://nodejs.org/docs/v0.4.11/api/fs.html#fs.unlink & #fb.rmdir
         cmdOut.bind({name: name, skipExitBinding: true})
 
       cmdOut =
